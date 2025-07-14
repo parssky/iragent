@@ -1,29 +1,54 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Callable
 from .agent import Agent
+from .message import Message
 
-class SequentialAgents:
-    def __init__(self, agents: List[Agent]):
-        self.agents = agents
-        self.messages = []
+class SimpleSequentialAgents:
+    def __init__(self, agents: List[Agent], init_message: str):
+        self.history = []
+        self.agent_manager = AgentManager(
+            init_message= init_message,
+            agents=agents,
+            max_round= len(agents),
+            termination_fn= None,
+            first_agent=agents[0]
+        )
     
-    def start(self, query: str) -> str:
-        """
-        [
-        {"role": "user", "content": query},
-        {"role": "assistant", "content": "first_agent_answer"},
-        ]
-        """
-        self.messages.append(self.build_role_user(query))
-        for agent in self.agents:
-            last_answer = self.messages[-1]["content"] # Last Message
-            ag_chat = [self.build_role_user(last_answer)]
-            agent_res = agent.call_messages(ag_chat)
-            self.messages.append({"role": agent.name, "content": agent_res})
+    def start(self) -> List[Message]:
+        return self.agent_manager.start()
+    
 
-        return self.messages
 
-    def build_role_user(self, q: str):
-        return {"role": "user", "content": q}
-    def build_assistant(self, q: str):
-        return {"role": "assistant", "content": q}
+
+class AgentManager:
+    def __init__(self, 
+                 init_message: str, 
+                 agents: List[Agent],
+                 first_agent: Agent, 
+                 max_round: int = 3, 
+                 termination_fn: Callable = None) -> None:
+        
+        self.termination_fn = termination_fn
+        self.max_round = max_round
+        self.agents = {agent.name: agent for agent in agents}
+        self.init_msg = Message(
+            sender="user",
+            reciever= first_agent.name,
+            content=init_message,
+            intent="User request",
+            metadata= {}
+        )
+    
+    def start(self) -> Message:
+        last_msg = self.init_msg
+        for _ in range(self.max_round):
+            if last_msg.reciever not in self.agents.keys():
+                raise ValueError(f"No agent named {last_msg.reciever}")
+            print(f"Routing from {last_msg.sender} -> {last_msg.reciever}")
+            res = self.agents[last_msg.reciever].call_message(last_msg)
+            if self.termination_fn is not None:
+                if self.termination_fn(res):
+                    return res
+            last_msg = res
+        
+        return last_msg
     
