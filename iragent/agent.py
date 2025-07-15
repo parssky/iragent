@@ -4,6 +4,7 @@ from typing import List, Dict, Any, Callable, get_type_hints
 import inspect
 import json
 import re
+from .message import Message
 
 """
 We need to extract docstring of each function too.
@@ -17,6 +18,7 @@ class Agent:
                 system_prompt: str, 
                 temprature: float = 0.1,
                 max_token: int=100,
+                next_agent: str = None,
                 fn: List[Callable] = []
                 ):
         self.base_url = base_url
@@ -26,15 +28,17 @@ class Agent:
         self.max_token = max_token
         self.system_prompt= system_prompt
         self.name = name
+        self.next_agent = next_agent
         self.function_map = {f.__name__: f for f in fn}
         self.fn = [self.function_to_schema(f) for f in fn]
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
     
-    def call_messages(self, messages: List[Dict[str, str]]) -> str:
+    def call_message(self, message: Message) -> str:
         msgs = [
-            {"role": "system", "content": self.system_prompt}
+            {"role": "system", "content": self.system_prompt},
+            {"role": "user", "content": message.content}
         ]
-        msgs.extend(messages)
+
         kwargs = dict(
             model = self.model,
             messages = msgs,
@@ -45,17 +49,17 @@ class Agent:
             kwargs["functions"] = self.fn
             kwargs["function_call"] = "auto"
         response = self.client.chat.completions.create(**kwargs)
-        message = response.choices[0].message
+        msg = response.choices[0].message
         # for function call
-        if message.function_call:
-            fn_name = message.function_call.name
-            arguments = json.loads(message.function_call.arguments)
+        if msg.function_call:
+            fn_name = msg.function_call.name
+            arguments = json.loads(msg.function_call.arguments)
             if fn_name in self.function_map:
                 result = self.function_map[fn_name](**arguments)
                 followup = self.client.chat.completions.create(
                     model=self.model,
                     messages= msgs + [
-                        message,
+                        msg,
                         {
                             "role": "function",
                             "name": fn_name,
@@ -65,21 +69,19 @@ class Agent:
                     max_tokens=self.max_token,
                     temperature=self.temprature
                 )
-                return followup.choices[0].message.content.strip()
-        return response.choices[0].message.content.strip()
-    
-    def call_message(self, query: str) -> str:
-        messages = [
-            {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": query}
-        ]
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=messages,
-            max_tokens=self.max_token,
-            temperature=self.temprature
+                return Message(
+                    sender=self.name,
+                    reciever=self.next_agent or message.sender,
+                    content=followup.choices[0].message.content.strip(),
+                    metadata={"reply_to": message.metadata.get("message_id")}
+                )
+            
+        return Message(
+            sender=self.name,
+            reciever=self.next_agent or message.sender,
+            content=response.choices[0].message.content.strip(),
+            metadata={"reply_to": message.metadata.get("message_id")}
         )
-        return response.choices[0].message.content.strip()
     
     def function_to_schema(self,fn: Callable) -> Dict[str, Any]:
         sig = inspect.signature(fn)
@@ -146,3 +148,6 @@ class Agent:
         }
 
 
+class UserAgent:
+    def __init__(self) -> None:
+        self.name = "user"

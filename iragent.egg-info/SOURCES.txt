@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+iragent/__init__.py
+iragent/agent.py
+iragent/message.py
+iragent/models.py
+iragent/prompts.py
+iragent/tools.py
+iragent.egg-info/PKG-INFO
+iragent.egg-info/SOURCES.txt
+iragent.egg-info/dependency_links.txt
+iragent.egg-info/requires.txt
+iragent.egg-info/top_level.txt
+tests/test_simple_sequence.py
