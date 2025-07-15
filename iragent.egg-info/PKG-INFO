@@ -7,5 +7,6 @@ License: MIT
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 Requires-Dist: openai
+Requires-Dist: unittest
 
 # iragent
