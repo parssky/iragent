@@ -5,6 +5,9 @@ from .message import Message
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
         self.history = []
+        # We don't need to know the next agent.
+        for i in range(len(agents) - 1):
+            agents[i].next_agent = agents[i + 1].name     
         self.agent_manager = AgentManager(
             init_message= init_message,
             agents=agents,
