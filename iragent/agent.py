@@ -4,6 +4,7 @@ from typing import List, Dict, Any, Callable, get_type_hints
 import inspect
 import json
 import re
+import requests
 from .message import Message
 
 """
@@ -19,8 +20,10 @@ class Agent:
                 temprature: float = 0.1,
                 max_token: int=100,
                 next_agent: str = None,
-                fn: List[Callable] = []
+                fn: List[Callable] = [],
+                provider: str = "openai"
                 ):
+        self.provider = provider
         self.base_url = base_url
         self.api_key = api_key
         self.model = model
@@ -39,6 +42,100 @@ class Agent:
             {"role": "user", "content": message.content}
         ]
 
+        if self.provider == "openai":
+            return self._call_openai(msgs=msgs, message=message)
+        if self.provider == "ollama":
+            return self._call_ollama(msgs=msgs, message=message)
+        else:
+            raise ValueError(f"Unsupported provider: {self.provider}")
+
+    def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
+        payload = {
+            "model": self.model,
+            "messages": msgs,
+            "stream": False
+        }
+        function_payload = {
+            "tools": [
+                {
+                    "type": "function",
+                    "function": f
+                } for f in self.fn
+            ]
+        }
+        payload.update(function_payload)
+ 
+        try:
+            response = requests.post(f"{self.base_url.removesuffix('/v1')}/api/chat", json=payload)
+        except Exception as e:
+            raise ValueError(f"Error calling Ollama: {str(e)}")
+
+        response.raise_for_status()
+        result = response.json()
+        msg = result["message"]
+        tool_calls = msg.get("tool_calls", [])
+        if not tool_calls:
+            reply = msg.get("content", "")
+            return Message(
+                sender=self.name,
+                reciever=self.next_agent or message.sender,
+                content=reply.strip(),
+                metadata={"reply_to": message.metadata.get("message_id")}
+            )
+
+        # Handle tool call (assume one for now)
+        tool = tool_calls[0]
+        fn_name = tool["function"]["name"]
+        arguments = tool["function"]["arguments"]
+
+        if fn_name in self.function_map:
+            result_str = str(self.function_map[fn_name](**arguments))
+
+            # Add tool call + tool response to messages for a second round
+            followup_msgs = msgs + [
+                {
+                    "role": "assistant",
+                    "tool_calls": tool_calls,
+                    "content": ""
+                },
+                {
+                    "role": "tool",
+                    "tool_call_id": tool.get("id", fn_name),
+                    "name": fn_name,
+                    "content": result_str
+                }
+            ]
+
+            followup_payload = {
+                "model": self.model,
+                "messages": followup_msgs,
+                "stream": False
+            }
+
+            followup_response = requests.post(
+                f"{self.base_url.removesuffix('/v1')}/api/chat", json=followup_payload
+            )
+            followup_response.raise_for_status()
+            followup = followup_response.json()
+
+            final_reply = followup["message"]["content"]
+            return Message(
+                sender=self.name,
+                reciever=self.next_agent or message.sender,
+                content=final_reply.strip(),
+                metadata={"reply_to": message.metadata.get("message_id")}
+            )
+
+        # fallback if function is not found
+        return Message(
+            sender=self.name,
+            reciever=self.next_agent or message.sender,
+            content=f"Function `{fn_name}` is not defined.",
+            metadata={"reply_to": message.metadata.get("message_id")}
+        )      
+
+    
+    def _call_openai(self, msgs: List[Dict], message: Message) -> Message:
         kwargs = dict(
             model = self.model,
             messages = msgs,
@@ -82,7 +179,9 @@ class Agent:
             content=response.choices[0].message.content.strip(),
             metadata={"reply_to": message.metadata.get("message_id")}
         )
-    
+        
+
+
     def function_to_schema(self,fn: Callable) -> Dict[str, Any]:
         sig = inspect.signature(fn)
         hints = get_type_hints(fn)
