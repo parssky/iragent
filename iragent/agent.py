@@ -45,11 +45,14 @@ class Agent:
         if self.provider == "openai":
             return self._call_openai(msgs=msgs, message=message)
         if self.provider == "ollama":
-            return self._call_ollama(msgs=msgs, message=message)
+            return self._call_ollama_v2(msgs=msgs, message=message)
         else:
             raise ValueError(f"Unsupported provider: {self.provider}")
 
     def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
+        """
+        This function use http call for ollama provider.
+        """
         payload = {
             "model": self.model,
             "messages": msgs,
@@ -134,6 +137,60 @@ class Agent:
             metadata={"reply_to": message.metadata.get("message_id")}
         )      
 
+    def _call_ollama_v2(self, msgs: List[Dict], message: Message) -> Message:
+        """
+        There is some different when you want to use ollama or openai call. this function work with "role":"tool".
+        this function use openai library for comunicate for ollama.
+        """
+        kwargs = dict(
+            model = self.model,
+            messages = msgs,
+            max_tokens = self.max_token,
+            temperature = self.temprature
+        )
+        
+        if self.fn:
+            kwargs["tools"] = [
+                {
+                    "type": "function",
+                    "function": f
+                } for f in self.fn
+            ]
+        response = self.client.chat.completions.create(**kwargs)
+        
+        msg = response.choices[0].message
+        # for function call
+        if msg.tool_calls:
+            fn_name = msg.tool_calls[0].function.name
+            arguments = json.loads(msg.tool_calls[0].function.arguments)
+            if fn_name in self.function_map:
+                result = self.function_map[fn_name](**arguments)
+                followup = self.client.chat.completions.create(
+                    model=self.model,
+                    messages= msgs + [
+                        msg,
+                        {
+                            "role": "tool",
+                            "name": fn_name,
+                            "content": str(result)
+                        }
+                    ],
+                    max_tokens=self.max_token,
+                    temperature=self.temprature
+                )
+                return Message(
+                    sender=self.name,
+                    reciever=self.next_agent or message.sender,
+                    content=followup.choices[0].message.content.strip(),
+                    metadata={"reply_to": message.metadata.get("message_id")}
+                )
+            
+        return Message(
+            sender=self.name,
+            reciever=self.next_agent or message.sender,
+            content=response.choices[0].message.content.strip(),
+            metadata={"reply_to": message.metadata.get("message_id")}
+        )
     
     def _call_openai(self, msgs: List[Dict], message: Message) -> Message:
         kwargs = dict(
