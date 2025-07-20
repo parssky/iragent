@@ -2,9 +2,9 @@ from typing import Dict
 
 class Message:
     def __init__(self, 
-                 sender: str, 
-                 reciever: str, 
-                 content: str, 
+                 sender: str = None, 
+                 reciever: str = None, 
+                 content: str = None, 
                  intent: str = None, 
                  metadata: Dict = None) -> None:
         self.sender = sender

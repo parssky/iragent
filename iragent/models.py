@@ -1,7 +1,10 @@
 from typing import List, Dict, Any, Callable
 from .agent import Agent
 from .message import Message
-from .prompts import AUTO_AGENT_PROMPT
+from .prompts import AUTO_AGENT_PROMPT,SUMMARIZER_PROMPT
+from googlesearch import search
+from .utility import fetch_url, chunker
+from tqdm import tqdm
 
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
@@ -115,3 +118,49 @@ class AutoAgentManager:
         
         return last_msg
 
+class InternetAgent:
+    def __init__(self, chunk_size: int,
+                  model: str, 
+                  base_url: str, 
+                  api_key: str, 
+                  temperature: float=0.1, 
+                  max_token: int=512, 
+                  provider: str ="openai") -> None:
+        self.chunk_size = chunk_size
+        self.summerize_agent = Agent(
+            name="Summerize Agent",
+            model=model,
+            base_url=base_url,
+            api_key=api_key,
+            system_prompt=SUMMARIZER_PROMPT,
+            temprature=temperature,
+            max_token=max_token,
+            provider= provider
+            )
+        
+    
+    def start(self, query: str, num_result) -> str:
+        search_results = search(query, advanced=True, num_results=num_result)
+        final_result = []
+        for result in tqdm(search_results, desc="Searching the websites"):
+            # Pass the seach with no title
+            if result.title is None:
+                continue
+            page_text = fetch_url(result.url)
+            chunks = chunker(page_text, token_limit=512)
+            sum_list = []
+            tqdm.write(f"Searching")
+            for chunk in tqdm(chunks, desc="Reading"):
+                msg = """
+                    query: {}
+                    context: {}
+                    """
+                sum_list.append(self.summerize_agent.call_message(Message(content=msg.format(query, chunk))).content)
+            final_result.append(
+                dict(
+                    url= result.url,
+                    title= result.title,
+                    content= "\n".join(sum_list)
+                )
+            )
+        return final_result
