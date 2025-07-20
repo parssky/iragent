@@ -1,6 +1,7 @@
 from typing import List, Dict, Any, Callable
 from .agent import Agent
 from .message import Message
+from .prompts import AUTO_AGENT_PROMPT
 
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
@@ -114,18 +115,3 @@ class AutoAgentManager:
         
         return last_msg
 
-AUTO_AGENT_PROMPT= """
-You are the Auto Agent Manager in a multi-agent AI system.
-
-Your job is to decide which agent should handle the next step based on the output of the previous agent.
-
-You will be given:
-1. A list of agents with their names and descriptions (system prompts)
-2. The output message from the last agent
-
-Respond with only the name of the next agent to route the message to.
-
-agents: {}
-
-{} message: {}
-"""
