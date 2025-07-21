@@ -5,9 +5,9 @@ class Message:
     This is the message class and it's a wrapper class around messages between user and agent
     """
     def __init__(self, 
-                 sender: str, 
-                 reciever: str, 
-                 content: str, 
+                 sender: str = None, 
+                 reciever: str = None, 
+                 content: str = None, 
                  intent: str = None, 
                  metadata: Dict = None) -> None:
 
