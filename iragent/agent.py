@@ -11,6 +11,9 @@ from .message import Message
 We need to extract docstring of each function too.
 """
 class Agent:
+    """!
+    using this class we'll be able to define an agent.
+    """
     def __init__(self,
                 name: str,
                 model: str, 
@@ -23,16 +26,28 @@ class Agent:
                 fn: List[Callable] = [],
                 provider: str = "openai"
                 ):
+        
+        ## The platform we use for loading the large lanuage models. you should peak ```ollama``` or ```openai``` as provider.
         self.provider = provider
+        ## This will be the base url in our agent for communication with llm.
         self.base_url = base_url
+        ## Your api-key will set in this variable to create a communication. 
         self.api_key = api_key
+        ## Choose the name of the model you want to use.
         self.model = model
+        ## set tempreture for generating output from llm. 
         self.temprature = temprature
+        ## set max token that will be generated. 
         self.max_token = max_token
+        ## set system prompt that will 
         self.system_prompt= system_prompt
+        ## set a name for the agent. 
         self.name = name
+        ## set a agent as next agent
         self.next_agent = next_agent
+
         self.function_map = {f.__name__: f for f in fn}
+        ## list of tools that available for this agent to use. 
         self.fn = [self.function_to_schema(f) for f in fn]
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
     
@@ -50,8 +65,10 @@ class Agent:
             raise ValueError(f"Unsupported provider: {self.provider}")
 
     def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
-        """
+        """!
         This function use http call for ollama provider.
+        @param msgs:
+            this is a list of dictionary
         """
         payload = {
             "model": self.model,

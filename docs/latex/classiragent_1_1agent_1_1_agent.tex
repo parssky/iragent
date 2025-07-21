@@ -1,0 +1,245 @@
+\doxysection{iragent.\+agent.\+Agent Class Reference}
+\hypertarget{classiragent_1_1agent_1_1_agent}{}\label{classiragent_1_1agent_1_1_agent}\index{iragent.agent.Agent@{iragent.agent.Agent}}
+
+
+using this class we\textquotesingle{}ll be able to define an agent.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a631738831b3e3b77980cbd2e960a7e03}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_abf51de05a80dfb65a977c768acd02429}{name}}, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a8678b9e776c81a98f0e5c1a0846faa6f}{model}}, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_af0df5b97487f9061c6dcb64948bdf07f}{base\+\_\+url}}, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ae5311ed530faeaeb5ce2bc06fd67a79f}{api\+\_\+key}}, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a693c5467c701b66355614328ea1a4d75}{system\+\_\+prompt}}, float \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a7c71849bf6e0ff3bfe772758f011fa54}{temprature}}=0.\+1, int \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_af1ab06bab7bab10b3b92bf588d68c86a}{max\+\_\+token}}=100, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a53611e0507bcba238ea117d8d542de91}{next\+\_\+agent}}=None, List\mbox{[}Callable\mbox{]} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b}{fn}}=\mbox{[}$\,$\mbox{]}, str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a387a6949073f40dbc22fb0dda55ead01}{provider}}=\"{}openai\"{})
+\item 
+str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a8f0b63353385aeb8afab68d6df19b1c4}{call\+\_\+message}} (self, \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} message)
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_abbc5a4b8aa83acc9b9929a8e919d5abe}{function\+\_\+to\+\_\+schema}} (self, Callable \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b}{fn}})
+\item 
+str \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ae8a17391ad216737284ad9abc6a432b3}{python\+\_\+type\+\_\+to\+\_\+json\+\_\+type}} (self, Any py\+\_\+type)
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a1454d346260d852569436dae70ca8511}{parse\+\_\+docstring}} (self, Callable \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b}{fn}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a387a6949073f40dbc22fb0dda55ead01}{provider}}
+\begin{DoxyCompactList}\small\item\em The platform we use for loading the large lanuage models. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_af0df5b97487f9061c6dcb64948bdf07f}{base\+\_\+url}}
+\begin{DoxyCompactList}\small\item\em This will be the base url in our agent for communication with llm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ae5311ed530faeaeb5ce2bc06fd67a79f}{api\+\_\+key}}
+\begin{DoxyCompactList}\small\item\em Your api-\/key will set in this variable to create a communication. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a8678b9e776c81a98f0e5c1a0846faa6f}{model}}
+\begin{DoxyCompactList}\small\item\em Choose the name of the model you want to use. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a7c71849bf6e0ff3bfe772758f011fa54}{temprature}}
+\begin{DoxyCompactList}\small\item\em set tempreture for generating output from llm. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_af1ab06bab7bab10b3b92bf588d68c86a}{max\+\_\+token}}
+\begin{DoxyCompactList}\small\item\em set max token that will be generated. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a693c5467c701b66355614328ea1a4d75}{system\+\_\+prompt}}
+\begin{DoxyCompactList}\small\item\em set system prompt that will \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_abf51de05a80dfb65a977c768acd02429}{name}}
+\begin{DoxyCompactList}\small\item\em set a name for the agent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a53611e0507bcba238ea117d8d542de91}{next\+\_\+agent}}
+\begin{DoxyCompactList}\small\item\em set a agent as next agent \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a99d34e2b0261b7876e078c5356e3efa4}{function\+\_\+map}}
+\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b}{fn}}
+\begin{DoxyCompactList}\small\item\em list of tools that available for this agent to use. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ae82806cd5557b0e8cc570fd7585847ae}{client}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_abc0d4a8ca990b08b974e45c129527935}{\+\_\+call\+\_\+ollama}} (self, List\mbox{[}Dict\mbox{]} msgs, \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} message)
+\begin{DoxyCompactList}\small\item\em This function use http call for ollama provider. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ad21dc5af0ed47d344732af220bd5fa35}{\+\_\+call\+\_\+ollama\+\_\+v2}} (self, List\mbox{[}Dict\mbox{]} msgs, \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} message)
+\item 
+\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} \mbox{\hyperlink{classiragent_1_1agent_1_1_agent_ab5a6a90437ed0a8de3a4b6e791b19981}{\+\_\+call\+\_\+openai}} (self, List\mbox{[}Dict\mbox{]} msgs, \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} message)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+using this class we\textquotesingle{}ll be able to define an agent. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classiragent_1_1agent_1_1_agent_a631738831b3e3b77980cbd2e960a7e03}\label{classiragent_1_1agent_1_1_agent_a631738831b3e3b77980cbd2e960a7e03} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{name,  }\item[{str}]{model,  }\item[{str}]{base\+\_\+url,  }\item[{str}]{api\+\_\+key,  }\item[{str}]{system\+\_\+prompt,  }\item[{float }]{temprature = {\ttfamily 0.1},  }\item[{int}]{max\+\_\+token = {\ttfamily 100},  }\item[{str }]{next\+\_\+agent = {\ttfamily None},  }\item[{List\mbox{[}Callable\mbox{]} }]{fn = {\ttfamily \mbox{[}\mbox{]}},  }\item[{str }]{provider = {\ttfamily \"{}openai\"{}} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classiragent_1_1agent_1_1_agent_abc0d4a8ca990b08b974e45c129527935}\label{classiragent_1_1agent_1_1_agent_abc0d4a8ca990b08b974e45c129527935} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!\_call\_ollama@{\_call\_ollama}}
+\index{\_call\_ollama@{\_call\_ollama}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{\_call\_ollama()}{\_call\_ollama()}}
+{\footnotesize\ttfamily  \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} iragent.\+agent.\+Agent.\+\_\+call\+\_\+ollama (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{List\mbox{[}Dict\mbox{]}}]{msgs,  }\item[{\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}}}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+This function use http call for ollama provider. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msgs} & this is a list of dictionary \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classiragent_1_1agent_1_1_agent_ad21dc5af0ed47d344732af220bd5fa35}\label{classiragent_1_1agent_1_1_agent_ad21dc5af0ed47d344732af220bd5fa35} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!\_call\_ollama\_v2@{\_call\_ollama\_v2}}
+\index{\_call\_ollama\_v2@{\_call\_ollama\_v2}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{\_call\_ollama\_v2()}{\_call\_ollama\_v2()}}
+{\footnotesize\ttfamily  \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} iragent.\+agent.\+Agent.\+\_\+call\+\_\+ollama\+\_\+v2 (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{List\mbox{[}Dict\mbox{]}}]{msgs,  }\item[{\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}}}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}There is some different when you want to use ollama or openai call. this function work with "role":"tool".
+this function use openai library for comunicate for ollama.
+\end{DoxyVerb}
+ \Hypertarget{classiragent_1_1agent_1_1_agent_ab5a6a90437ed0a8de3a4b6e791b19981}\label{classiragent_1_1agent_1_1_agent_ab5a6a90437ed0a8de3a4b6e791b19981} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!\_call\_openai@{\_call\_openai}}
+\index{\_call\_openai@{\_call\_openai}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{\_call\_openai()}{\_call\_openai()}}
+{\footnotesize\ttfamily  \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} iragent.\+agent.\+Agent.\+\_\+call\+\_\+openai (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{List\mbox{[}Dict\mbox{]}}]{msgs,  }\item[{\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}}}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a8f0b63353385aeb8afab68d6df19b1c4}\label{classiragent_1_1agent_1_1_agent_a8f0b63353385aeb8afab68d6df19b1c4} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!call\_message@{call\_message}}
+\index{call\_message@{call\_message}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{call\_message()}{call\_message()}}
+{\footnotesize\ttfamily  str iragent.\+agent.\+Agent.\+call\+\_\+message (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}}}]{message }\end{DoxyParamCaption})}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_abbc5a4b8aa83acc9b9929a8e919d5abe}\label{classiragent_1_1agent_1_1_agent_abbc5a4b8aa83acc9b9929a8e919d5abe} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!function\_to\_schema@{function\_to\_schema}}
+\index{function\_to\_schema@{function\_to\_schema}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{function\_to\_schema()}{function\_to\_schema()}}
+{\footnotesize\ttfamily  Dict\mbox{[}str, Any\mbox{]} iragent.\+agent.\+Agent.\+function\+\_\+to\+\_\+schema (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{Callable}]{fn }\end{DoxyParamCaption})}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a1454d346260d852569436dae70ca8511}\label{classiragent_1_1agent_1_1_agent_a1454d346260d852569436dae70ca8511} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!parse\_docstring@{parse\_docstring}}
+\index{parse\_docstring@{parse\_docstring}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{parse\_docstring()}{parse\_docstring()}}
+{\footnotesize\ttfamily  Dict\mbox{[}str, Any\mbox{]} iragent.\+agent.\+Agent.\+parse\+\_\+docstring (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{Callable}]{fn }\end{DoxyParamCaption})}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_ae8a17391ad216737284ad9abc6a432b3}\label{classiragent_1_1agent_1_1_agent_ae8a17391ad216737284ad9abc6a432b3} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!python\_type\_to\_json\_type@{python\_type\_to\_json\_type}}
+\index{python\_type\_to\_json\_type@{python\_type\_to\_json\_type}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{python\_type\_to\_json\_type()}{python\_type\_to\_json\_type()}}
+{\footnotesize\ttfamily  str iragent.\+agent.\+Agent.\+python\+\_\+type\+\_\+to\+\_\+json\+\_\+type (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{Any}]{py\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classiragent_1_1agent_1_1_agent_ae5311ed530faeaeb5ce2bc06fd67a79f}\label{classiragent_1_1agent_1_1_agent_ae5311ed530faeaeb5ce2bc06fd67a79f} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!api\_key@{api\_key}}
+\index{api\_key@{api\_key}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{api\_key}{api\_key}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+api\+\_\+key}
+
+
+
+Your api-\/key will set in this variable to create a communication. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_af0df5b97487f9061c6dcb64948bdf07f}\label{classiragent_1_1agent_1_1_agent_af0df5b97487f9061c6dcb64948bdf07f} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!base\_url@{base\_url}}
+\index{base\_url@{base\_url}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{base\_url}{base\_url}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+base\+\_\+url}
+
+
+
+This will be the base url in our agent for communication with llm. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_ae82806cd5557b0e8cc570fd7585847ae}\label{classiragent_1_1agent_1_1_agent_ae82806cd5557b0e8cc570fd7585847ae} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!client@{client}}
+\index{client@{client}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{client}{client}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+client}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b}\label{classiragent_1_1agent_1_1_agent_a0030f0c152d957f9d67f9fb05af09d1b} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!fn@{fn}}
+\index{fn@{fn}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{fn}{fn}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+fn}
+
+
+
+list of tools that available for this agent to use. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a99d34e2b0261b7876e078c5356e3efa4}\label{classiragent_1_1agent_1_1_agent_a99d34e2b0261b7876e078c5356e3efa4} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!function\_map@{function\_map}}
+\index{function\_map@{function\_map}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{function\_map}{function\_map}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+function\+\_\+map}
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_af1ab06bab7bab10b3b92bf588d68c86a}\label{classiragent_1_1agent_1_1_agent_af1ab06bab7bab10b3b92bf588d68c86a} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!max\_token@{max\_token}}
+\index{max\_token@{max\_token}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{max\_token}{max\_token}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+max\+\_\+token}
+
+
+
+set max token that will be generated. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a8678b9e776c81a98f0e5c1a0846faa6f}\label{classiragent_1_1agent_1_1_agent_a8678b9e776c81a98f0e5c1a0846faa6f} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!model@{model}}
+\index{model@{model}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{model}{model}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+model}
+
+
+
+Choose the name of the model you want to use. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_abf51de05a80dfb65a977c768acd02429}\label{classiragent_1_1agent_1_1_agent_abf51de05a80dfb65a977c768acd02429} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!name@{name}}
+\index{name@{name}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+name}
+
+
+
+set a name for the agent. 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a53611e0507bcba238ea117d8d542de91}\label{classiragent_1_1agent_1_1_agent_a53611e0507bcba238ea117d8d542de91} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!next\_agent@{next\_agent}}
+\index{next\_agent@{next\_agent}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{next\_agent}{next\_agent}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+next\+\_\+agent}
+
+
+
+set a agent as next agent 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a387a6949073f40dbc22fb0dda55ead01}\label{classiragent_1_1agent_1_1_agent_a387a6949073f40dbc22fb0dda55ead01} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!provider@{provider}}
+\index{provider@{provider}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{provider}{provider}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+provider}
+
+
+
+The platform we use for loading the large lanuage models. 
+
+you should peak {\ttfamily ollama} or {\ttfamily openai} as provider. \Hypertarget{classiragent_1_1agent_1_1_agent_a693c5467c701b66355614328ea1a4d75}\label{classiragent_1_1agent_1_1_agent_a693c5467c701b66355614328ea1a4d75} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!system\_prompt@{system\_prompt}}
+\index{system\_prompt@{system\_prompt}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{system\_prompt}{system\_prompt}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+system\+\_\+prompt}
+
+
+
+set system prompt that will 
+
+\Hypertarget{classiragent_1_1agent_1_1_agent_a7c71849bf6e0ff3bfe772758f011fa54}\label{classiragent_1_1agent_1_1_agent_a7c71849bf6e0ff3bfe772758f011fa54} 
+\index{iragent.agent.Agent@{iragent.agent.Agent}!temprature@{temprature}}
+\index{temprature@{temprature}!iragent.agent.Agent@{iragent.agent.Agent}}
+\doxysubsubsection{\texorpdfstring{temprature}{temprature}}
+{\footnotesize\ttfamily iragent.\+agent.\+Agent.\+temprature}
+
+
+
+set tempreture for generating output from llm. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+iragent/\mbox{\hyperlink{agent_8py}{agent.\+py}}\end{DoxyCompactItemize}
