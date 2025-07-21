@@ -89,9 +89,72 @@ $(function(){ initResizable(false); });
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">iragent.prompts Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:afab50c644bec51fcb93eda579981c8c2" id="r_afab50c644bec51fcb93eda579981c8c2"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afab50c644bec51fcb93eda579981c8c2">AUTO_AGENT_PROMPT</a></td></tr>
+<tr class="separator:afab50c644bec51fcb93eda579981c8c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2af51c88f9c459ff1ae9c393d494ba8c" id="r_a2af51c88f9c459ff1ae9c393d494ba8c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2af51c88f9c459ff1ae9c393d494ba8c">SUMMARIZER_PROMPT</a></td></tr>
+<tr class="separator:a2af51c88f9c459ff1ae9c393d494ba8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="afab50c644bec51fcb93eda579981c8c2" name="afab50c644bec51fcb93eda579981c8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab50c644bec51fcb93eda579981c8c2">&#9670;&#160;</a></span>AUTO_AGENT_PROMPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.AUTO_AGENT_PROMPT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are the Auto Agent Manager in a multi-agent AI system.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral">Your job is to decide which agent should handle the next step based on the output of the previous agent.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">You will be given:</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">1. A list of agents with their names and descriptions (system prompts)</span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">2. The output message from the last agent</span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">Respond with only the name of the next agent to route the message to.</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">agents: {}</span></div>
+<div class="line"><span class="lineno">   13</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   14</span><span class="stringliteral">{} message: {}</span></div>
+<div class="line"><span class="lineno">   15</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2af51c88f9c459ff1ae9c393d494ba8c" name="a2af51c88f9c459ff1ae9c393d494ba8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2af51c88f9c459ff1ae9c393d494ba8c">&#9670;&#160;</a></span>SUMMARIZER_PROMPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.SUMMARIZER_PROMPT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are a summarizer that helps users extract information from web content. </span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">When the user provides a query and a context (which may include irrelevant or off-topic information), you will:</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">- Carefully read the context.</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">- Summarize only the information that is directly relevant to the user&#39;s query.</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">- If there is no relevant information in the context, respond with: &quot;No relevant information found.&quot;</span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">- Keep your summary clear and concise.</span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

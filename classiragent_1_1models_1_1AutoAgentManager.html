@@ -92,7 +92,6 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classiragent_1_1models_1_1AutoAgentManager-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">iragent.models.AutoAgentManager Class Reference</div></div>
 </div><!--header-->
@@ -119,11 +118,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a1a9edf044efa2eff8ab47a3ee7a54f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a865cdcfae18c81a19ae292d0f1702c1f" id="r_a865cdcfae18c81a19ae292d0f1702c1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a865cdcfae18c81a19ae292d0f1702c1f">termination_word</a> = termination_word</td></tr>
 <tr class="separator:a865cdcfae18c81a19ae292d0f1702c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:adee1c00ae8a37d9d74c14036fb6dcd19" id="r_adee1c00ae8a37d9d74c14036fb6dcd19"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adee1c00ae8a37d9d74c14036fb6dcd19">AUTO_AGENT_PROMPT</a></td></tr>
-<tr class="separator:adee1c00ae8a37d9d74c14036fb6dcd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab3ddad07e479ade51eed3b9129a63a73" name="ab3ddad07e479ade51eed3b9129a63a73"></a>
@@ -218,50 +212,13 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  Agent(</div>
 <div class="line">            <span class="stringliteral">&quot;agent_manager&quot;</span>,</div>
-<div class="line">            system_prompt=<span class="stringliteral">&quot;You are the Auto manager&quot;</span>,</div>
+<div class="line">            system_prompt=<span class="stringliteral">&quot;You are the Auto manager.&quot;</span>,</div>
 <div class="line">            model=first_agent.model,</div>
 <div class="line">            base_url=first_agent.base_url,</div>
 <div class="line">            api_key=first_agent.api_key,</div>
 <div class="line">            temprature= 0.1,</div>
 <div class="line">            max_token=32</div>
 <div class="line">        )</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="adee1c00ae8a37d9d74c14036fb6dcd19" name="adee1c00ae8a37d9d74c14036fb6dcd19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adee1c00ae8a37d9d74c14036fb6dcd19">&#9670;&#160;</a></span>AUTO_AGENT_PROMPT</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">str iragent.models.AutoAgentManager.AUTO_AGENT_PROMPT</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
-<div class="line"><span class="stringliteral">You are the Auto Agent Manager in a multi-agent AI system.</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">Your job is to decide which agent should handle the next step based on the output of the previous agent.</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">You will be given:</span></div>
-<div class="line"><span class="stringliteral">1. A list of agents with their names and descriptions (system prompts)</span></div>
-<div class="line"><span class="stringliteral">2. The output message from the last agent</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">Respond with only the name of the next agent to route the message to.</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">agents: {}</span></div>
-<div class="line"><span class="stringliteral"></span> </div>
-<div class="line"><span class="stringliteral">{} message: {}</span></div>
-<div class="line"><span class="stringliteral">&quot;&quot;&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>

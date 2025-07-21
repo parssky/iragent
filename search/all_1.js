@@ -10,6 +10,6 @@ var searchData=
   ['agents_7',['agents',['../classiragent_1_1models_1_1AgentManager.html#ae37204d7ada9d071bd54f4bec5d15db7',1,'iragent.models.AgentManager.agents'],['../classiragent_1_1models_1_1AutoAgentManager.html#ad8f4b110faeb806ed23564f1ad69dbcc',1,'iragent.models.AutoAgentManager.agents']]],
   ['api_5fkey_8',['api_key',['../classiragent_1_1agent_1_1Agent.html#ae5311ed530faeaeb5ce2bc06fd67a79f',1,'iragent.agent.Agent.api_key'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#aa11b10fde3eb0ce2084a6d90b8b6e173',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.api_key']]],
   ['auto_5fagent_9',['auto_agent',['../classiragent_1_1models_1_1AutoAgentManager.html#a2a3955de1ec2945a790552708b7f3c96',1,'iragent::models::AutoAgentManager']]],
-  ['auto_5fagent_5fprompt_10',['AUTO_AGENT_PROMPT',['../classiragent_1_1models_1_1AutoAgentManager.html#adee1c00ae8a37d9d74c14036fb6dcd19',1,'iragent::models::AutoAgentManager']]],
+  ['auto_5fagent_5fprompt_10',['AUTO_AGENT_PROMPT',['../namespaceiragent_1_1prompts.html#afab50c644bec51fcb93eda579981c8c2',1,'iragent::prompts']]],
   ['autoagentmanager_11',['AutoAgentManager',['../classiragent_1_1models_1_1AutoAgentManager.html',1,'iragent::models']]]
 ];
