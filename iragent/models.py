@@ -119,6 +119,30 @@ class AutoAgentManager:
         return last_msg
 
 class InternetAgent:
+    """
+    InternetAgent is a tool for conducting web-based searches, retrieving relevant web pages,
+    chunking their content, and summarizing them using a specified language model.
+
+    Attributes:
+        chunk_size (int): Maximum token size for each chunk of webpage content.
+        summerize_agent (Agent): An instance of the summarization agent for generating summaries
+                                 from text chunks based on a system prompt.
+
+    Args:
+        chunk_size (int): Token limit for text chunking.
+        model (str): The name or identifier of the language model to be used.
+        base_url (str): Base URL for the API that powers the summarization model.
+        api_key (str): API key for authenticating with the model provider.
+        temperature (float, optional): Sampling temperature for generation. Defaults to 0.1.
+        max_token (int, optional): Maximum number of tokens allowed in the summary output. Defaults to 512.
+        provider (str, optional): Name of the model provider (e.g., "openai"). Defaults to "openai".
+
+    Methods:
+        start(query: str, num_result: int) -> list:
+            Executes a web search for the given query, retrieves the content of top results,
+            splits them into chunks, summarizes them using the summarization agent,
+            and returns a list of dictionaries with URL, title, and summarized content.
+    """    
     def __init__(self, chunk_size: int,
                   model: str, 
                   base_url: str, 
@@ -140,17 +164,20 @@ class InternetAgent:
         
     
     def start(self, query: str, num_result) -> str:
+        tqdm.write(f"\nStarting search for query: '{query}' with top {num_result} results...\n")
         search_results = search(query, advanced=True, num_results=num_result)
         final_result = []
-        for result in tqdm(search_results, desc="Searching the websites"):
+        for result in tqdm(search_results, desc="Processing search results", unit="site"):
             # Pass the seach with no title
             if result.title is None:
+                tqdm.write(f"Skipping result with missing title: {result.url}")
                 continue
+            tqdm.write(f"\nFetching: {result.title} ({result.url})")
             page_text = fetch_url(result.url)
             chunks = chunker(page_text, token_limit=self.chunk_size)
             sum_list = []
             tqdm.write(f"Searching")
-            for chunk in tqdm(chunks, desc="Reading"):
+            for chunk in tqdm(chunks, desc="Reading chunks", unit="chunk"):
                 msg = """
                     query: {}
                     context: {}
@@ -160,23 +187,10 @@ class InternetAgent:
                 dict(
                     url= result.url,
                     title= result.title,
-                    content= "\n".join(sum_list)
+                    content = "\n".join([item for item in sum_list if item != "No relevant information found."]) # Check item with relevant info.
                 )
             )
+            tqdm.write(f"Finished summarizing: {result.title}\n")
+        tqdm.write("Done processing all search results.\n")
         return final_result
     
-AUTO_AGENT_PROMPT= """
-You are the Auto Agent Manager in a multi-agent AI system.
-
-Your job is to decide which agent should handle the next step based on the output of the previous agent.
-
-You will be given:
-1. A list of agents with their names and descriptions (system prompts)
-2. The output message from the last agent
-
-Respond with only the name of the next agent to route the message to.
-
-agents: {}
-
-{} message: {}
-"""
