@@ -1,0 +1,45 @@
+\doxysection{iragent.\+tools Namespace Reference}
+\hypertarget{namespaceiragent_1_1tools}{}\label{namespaceiragent_1_1tools}\index{iragent.tools@{iragent.tools}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespaceiragent_1_1tools_af4e55e123ceee6b3677bae4801fe9325}{get\+\_\+time\+\_\+now}} ()
+\begin{DoxyCompactList}\small\item\em Just return current local time. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceiragent_1_1tools_a25a8a80228695da2c3ddfe64cfa81df8}{simple\+\_\+termination}} (str word, \mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}} message)
+\begin{DoxyCompactList}\small\item\em This is just a function that check if the termination keyword was in the message, return True or False. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceiragent_1_1tools_af4e55e123ceee6b3677bae4801fe9325}\label{namespaceiragent_1_1tools_af4e55e123ceee6b3677bae4801fe9325} 
+\index{iragent.tools@{iragent.tools}!get\_time\_now@{get\_time\_now}}
+\index{get\_time\_now@{get\_time\_now}!iragent.tools@{iragent.tools}}
+\doxysubsubsection{\texorpdfstring{get\_time\_now()}{get\_time\_now()}}
+{\footnotesize\ttfamily  str iragent.\+tools.\+get\+\_\+time\+\_\+now (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Just return current local time. 
+
+\begin{DoxyReturn}{Returns}
+str\+: return current local time as {\ttfamily string} 
+\end{DoxyReturn}
+\Hypertarget{namespaceiragent_1_1tools_a25a8a80228695da2c3ddfe64cfa81df8}\label{namespaceiragent_1_1tools_a25a8a80228695da2c3ddfe64cfa81df8} 
+\index{iragent.tools@{iragent.tools}!simple\_termination@{simple\_termination}}
+\index{simple\_termination@{simple\_termination}!iragent.tools@{iragent.tools}}
+\doxysubsubsection{\texorpdfstring{simple\_termination()}{simple\_termination()}}
+{\footnotesize\ttfamily  bool iragent.\+tools.\+simple\+\_\+termination (\begin{DoxyParamCaption}\item[{str}]{word,  }\item[{\mbox{\hyperlink{classiragent_1_1message_1_1_message}{Message}}}]{message }\end{DoxyParamCaption})}
+
+
+
+This is just a function that check if the termination keyword was in the message, return True or False. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em word} & \+: termination keyword. \\
+\hline
+{\em message} & \+: a Message that will be checked if it have termination keyword {\ttfamily word} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool\+: True if {\ttfamily word} founded in {\ttfamily message} otherwise return {\ttfamily False} 
+\end{DoxyReturn}
