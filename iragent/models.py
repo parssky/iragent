@@ -70,7 +70,7 @@ class AutoAgentManager:
                  termination_word: str = None) -> None:
         self.auto_agent = Agent(
             "agent_manager",
-            system_prompt="You are the Auto manager",
+            system_prompt="You are the Auto manager.",
             model=first_agent.model,
             base_url=first_agent.base_url,
             api_key=first_agent.api_key,
@@ -91,8 +91,8 @@ class AutoAgentManager:
     
     def start(self) -> Message:
         list_agents_info = "\n".join(
-            f"- {agent_name}: {self.agents[agent_name].system_prompt}" for agent_name in self.agents.keys()
-        )        
+            f"- [{agent_name}]-> system_prompt :{self.agents[agent_name].system_prompt}" for agent_name in self.agents.keys()
+        )
         last_msg = self.init_msg
         for _ in range(self.max_round):
             if last_msg.reciever not in self.agents.keys():
@@ -147,7 +147,7 @@ class InternetAgent:
             if result.title is None:
                 continue
             page_text = fetch_url(result.url)
-            chunks = chunker(page_text, token_limit=512)
+            chunks = chunker(page_text, token_limit=self.chunk_size)
             sum_list = []
             tqdm.write(f"Searching")
             for chunk in tqdm(chunks, desc="Reading"):
@@ -164,3 +164,19 @@ class InternetAgent:
                 )
             )
         return final_result
+    
+AUTO_AGENT_PROMPT= """
+You are the Auto Agent Manager in a multi-agent AI system.
+
+Your job is to decide which agent should handle the next step based on the output of the previous agent.
+
+You will be given:
+1. A list of agents with their names and descriptions (system prompts)
+2. The output message from the last agent
+
+Respond with only the name of the next agent to route the message to.
+
+agents: {}
+
+{} message: {}
+"""
