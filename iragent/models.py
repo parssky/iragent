@@ -5,6 +5,7 @@ from .prompts import AUTO_AGENT_PROMPT,SUMMARIZER_PROMPT
 from googlesearch import search
 from .utility import fetch_url, chunker
 from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
@@ -193,4 +194,131 @@ class InternetAgent:
             tqdm.write(f"Finished summarizing: {result.title}\n")
         tqdm.write("Done processing all search results.\n")
         return final_result
+    
+    def fast_start(self, query: str, num_result: int, max_workers: int | None = None) -> list[dict]:
+        """
+        A convenience wrapper that searches the Web, fetches the content of each hit,
+        breaks the text into token‑limited chunks, and asks a language‑model “summarizer”
+        to extract only the information relevant to the user’s query.
+
+        ----------
+        Attributes
+        ----------
+        chunk_size : int
+            Maximum token length for each text chunk before it is passed to the
+            summarization model.
+        summerize_agent : Agent
+            A pre‑configured LLM “agent” used to turn a chunk of raw page text
+            into a concise, query‑focused summary.
+
+        ----------
+        Parameters
+        ----------
+        chunk_size : int
+            Token limit used when splitting page text.
+        model : str
+            Name / identifier of the language model (e.g. ``"gpt-4o-2025-05-13"``).
+        base_url : str
+            Base URL for the model’s API endpoint.
+        api_key : str
+            API key or access token.
+        temperature : float, optional (default = 0.1)
+            Sampling temperature.
+        max_token : int, optional (default = 512)
+            Maximum length of each summary returned by the LLM.
+        provider : str, optional (default = ``"openai"``)
+            Identifies the backend.  Special‑casing is included for ``"ollama"``
+            because its local HTTP server dislikes shared clients in a pool of
+            threads.
+
+        ----------
+        Methods
+        ----------
+        start(query, num_result)
+            Serial implementation – easy to read, useful for debugging.
+        fast_start(query, num_result, max_workers=None)
+            Threaded implementation that parallelises I/O for speed.
+        _summarize_page(result, query)
+            Worker routine run by each thread in ``fast_start``.  Not public.
+
+        All methods return a ``list[dict]`` whose items look like::
+
+            {
+                "url":     "<page URL>",
+                "title":   "<page title>",
+                "content": "<summarised text>",
+            }
+        """
+        tqdm.write(f"\nStarting search for query: '{query}' with top {num_result} results...\n")
+        search_results = search(query, advanced=True, num_results=num_result)
+
+        # Keep only results with a title so the progress bar is accurate
+        valid_results = [r for r in search_results if r.title]
+
+        final_result: list[dict] = []
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_url = {
+                executor.submit(self._summarize_page, r, query): r.url
+                for r in valid_results
+            }
+
+            for fut in tqdm(
+                as_completed(future_to_url),
+                total=len(future_to_url),
+                desc="Processing search results",
+                unit="site",
+            ):
+                try:
+                    item = fut.result()
+                    if item:
+                        final_result.append(item)
+                except Exception as exc:
+                    tqdm.write(f"Error while processing {future_to_url[fut]}: {exc}")
+
+        tqdm.write("Done processing all search results.\n")
+        return final_result
+        
+    def _summarize_page(self, result, query: str):
+        """Fetch one page and summarise it (runs in its own thread)."""
+        if result.title is None:
+            tqdm.write(f"Skipping result with missing title: {result.url}")
+            return None
+
+        tqdm.write(f"\nFetching: {result.title} ({result.url})")
+        page_text = fetch_url(result.url)
+        chunks = chunker(page_text, token_limit=self.chunk_size)
+
+        # Ollama servers dislike shared clients; make one per thread
+        if getattr(self.summerize_agent, "provider", "").lower() == "ollama":
+            summarizer = Agent(
+                name="Summarize Agent (thread‑local)",
+                model=self.summerize_agent.model,
+                base_url=self.summerize_agent.base_url,
+                api_key=self.summerize_agent.api_key,
+                system_prompt=self.summerize_agent.system_prompt,
+                temprature=self.summerize_agent.temprature,
+                max_token=self.summerize_agent.max_token,
+                provider="ollama",
+            )
+        else:
+            summarizer = self.summerize_agent  # safe to reuse for OpenAI etc.
+
+        summaries = []
+        for chunk in chunks:
+            msg = f"""
+            query: {query}
+            context: {chunk}
+            """
+            summaries.append(
+                summarizer.call_message(Message(content=msg)).content
+            )
+
+        tqdm.write(f"Finished summarizing: {result.title}\n")
+        return dict(
+            url=result.url,
+            title=result.title,
+            content="\n".join(
+                [s for s in summaries if s.strip() != "No relevant information found."]
+            ),
+        )     
     
