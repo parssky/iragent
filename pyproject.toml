@@ -8,9 +8,8 @@ license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
     "openai",
-    "unittest",
     "requests",
-    "googlesearch",
+    "googlesearch-python",
     "beautifulsoup4",
     "lxml",
     "nltk",
@@ -19,3 +18,9 @@ dependencies = [
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 88                # global setting
+
+[tool.ruff.lint]
+extend-select = ["I"]           # “isort” import‑sorting rules
