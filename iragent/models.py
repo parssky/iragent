@@ -1,51 +1,53 @@
-from typing import List, Dict, Any, Callable
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Callable, List
+
+from googlesearch import search
+from tqdm import tqdm
+
 from .agent import Agent
 from .message import Message
-from .prompts import AUTO_AGENT_PROMPT,SUMMARIZER_PROMPT
-from googlesearch import search
-from .utility import fetch_url, chunker
-from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from .prompts import AUTO_AGENT_PROMPT, SUMMARIZER_PROMPT
+from .utility import chunker, fetch_url
+
 
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
         self.history = []
         # We just follow sequencially the agents.
         for i in range(len(agents) - 1):
-            agents[i].next_agent = agents[i + 1].name     
+            agents[i].next_agent = agents[i + 1].name
         self.agent_manager = AgentManager(
-            init_message= init_message,
+            init_message=init_message,
             agents=agents,
-            max_round= len(agents),
-            termination_fn= None,
-            first_agent=agents[0]
+            max_round=len(agents),
+            termination_fn=None,
+            first_agent=agents[0],
         )
-    
+
     def start(self) -> List[Message]:
         return self.agent_manager.start()
-    
-
 
 
 class AgentManager:
-    def __init__(self, 
-                 init_message: str, 
-                 agents: List[Agent],
-                 first_agent: Agent, 
-                 max_round: int = 3, 
-                 termination_fn: Callable = None) -> None:
-        
+    def __init__(
+        self,
+        init_message: str,
+        agents: List[Agent],
+        first_agent: Agent,
+        max_round: int = 3,
+        termination_fn: Callable = None,
+    ) -> None:
         self.termination_fn = termination_fn
         self.max_round = max_round
         self.agents = {agent.name: agent for agent in agents}
         self.init_msg = Message(
             sender="user",
-            reciever= first_agent.name,
+            reciever=first_agent.name,
             content=init_message,
             intent="User request",
-            metadata= {}
+            metadata={},
         )
-    
+
     def start(self) -> Message:
         last_msg = self.init_msg
         for _ in range(self.max_round):
@@ -57,48 +59,53 @@ class AgentManager:
                 if self.termination_fn(res):
                     return res
             last_msg = res
-        
+
         return last_msg
-    
-    
+
+
 class AutoAgentManager:
-    def __init__(self, 
-                 init_message: str, 
-                 agents: List[Agent],
-                 first_agent: Agent, 
-                 max_round: int = 3,
-                 termination_fn: Callable = None, 
-                 termination_word: str = None) -> None:
+    def __init__(
+        self,
+        init_message: str,
+        agents: List[Agent],
+        first_agent: Agent,
+        max_round: int = 3,
+        termination_fn: Callable = None,
+        termination_word: str = None,
+    ) -> None:
         self.auto_agent = Agent(
             "agent_manager",
             system_prompt="You are the Auto manager.",
             model=first_agent.model,
             base_url=first_agent.base_url,
             api_key=first_agent.api_key,
-            temprature= 0.1,
-            max_token=32
+            temprature=0.1,
+            max_token=32,
         )
         self.termination_fn = termination_fn
         self.max_round = max_round
         self.agents = {agent.name: agent for agent in agents}
         self.init_msg = Message(
             sender="user",
-            reciever= first_agent.name,
+            reciever=first_agent.name,
             content=init_message,
             intent="User request",
-            metadata= {}
+            metadata={},
         )
         self.termination_word = termination_word
-    
+
     def start(self) -> Message:
         list_agents_info = "\n".join(
-            f"- [{agent_name}]-> system_prompt :{self.agents[agent_name].system_prompt}" for agent_name in self.agents.keys()
+            f"- [{agent_name}]-> system_prompt :{self.agents[agent_name].system_prompt}"
+            for agent_name in self.agents.keys()
         )
         last_msg = self.init_msg
         for _ in range(self.max_round):
             if last_msg.reciever not in self.agents.keys():
                 raise ValueError(f"No agent named {last_msg.reciever}")
-            print(f"Routing from {last_msg.sender} -> {last_msg.reciever} \n content: {last_msg.content}")
+            print(
+                f"Routing from {last_msg.sender} -> {last_msg.reciever} \n content: {last_msg.content}"
+            )
             res = self.agents[last_msg.reciever].call_message(last_msg)
             if self.termination_fn is not None:
                 if self.termination_fn(self.termination_word, res):
@@ -110,14 +117,17 @@ class AutoAgentManager:
                     Message(
                         sender="auto_router",
                         reciever="agent_manager",
-                        content= AUTO_AGENT_PROMPT.format(list_agents_info, last_msg.sender ,last_msg.content)
+                        content=AUTO_AGENT_PROMPT.format(
+                            list_agents_info, last_msg.sender, last_msg.content
+                        ),
                     )
                 ).content
                 if next_agent in self.agents.keys():
                     break
             last_msg.reciever = next_agent
-        
+
         return last_msg
+
 
 class InternetAgent:
     """
@@ -143,14 +153,18 @@ class InternetAgent:
             Executes a web search for the given query, retrieves the content of top results,
             splits them into chunks, summarizes them using the summarization agent,
             and returns a list of dictionaries with URL, title, and summarized content.
-    """    
-    def __init__(self, chunk_size: int,
-                  model: str, 
-                  base_url: str, 
-                  api_key: str, 
-                  temperature: float=0.1, 
-                  max_token: int=512, 
-                  provider: str ="openai") -> None:
+    """
+
+    def __init__(
+        self,
+        chunk_size: int,
+        model: str,
+        base_url: str,
+        api_key: str,
+        temperature: float = 0.1,
+        max_token: int = 512,
+        provider: str = "openai",
+    ) -> None:
         self.chunk_size = chunk_size
         self.summerize_agent = Agent(
             name="Summerize Agent",
@@ -160,15 +174,18 @@ class InternetAgent:
             system_prompt=SUMMARIZER_PROMPT,
             temprature=temperature,
             max_token=max_token,
-            provider= provider
-            )
-        
-    
+            provider=provider,
+        )
+
     def start(self, query: str, num_result) -> str:
-        tqdm.write(f"\nStarting search for query: '{query}' with top {num_result} results...\n")
+        tqdm.write(
+            f"\nStarting search for query: '{query}' with top {num_result} results...\n"
+        )
         search_results = search(query, advanced=True, num_results=num_result)
         final_result = []
-        for result in tqdm(search_results, desc="Processing search results", unit="site"):
+        for result in tqdm(
+            search_results, desc="Processing search results", unit="site"
+        ):
             # Pass the seach with no title
             if result.title is None:
                 tqdm.write(f"Skipping result with missing title: {result.url}")
@@ -177,25 +194,37 @@ class InternetAgent:
             page_text = fetch_url(result.url)
             chunks = chunker(page_text, token_limit=self.chunk_size)
             sum_list = []
-            tqdm.write(f"Searching")
+            tqdm.write("Searching")
             for chunk in tqdm(chunks, desc="Reading chunks", unit="chunk"):
                 msg = """
                     query: {}
                     context: {}
                     """
-                sum_list.append(self.summerize_agent.call_message(Message(content=msg.format(query, chunk))).content)
+                sum_list.append(
+                    self.summerize_agent.call_message(
+                        Message(content=msg.format(query, chunk))
+                    ).content
+                )
             final_result.append(
                 dict(
-                    url= result.url,
-                    title= result.title,
-                    content = "\n".join([item for item in sum_list if item != "No relevant information found."]) # Check item with relevant info.
+                    url=result.url,
+                    title=result.title,
+                    content="\n".join(
+                        [
+                            item
+                            for item in sum_list
+                            if item != "No relevant information found."
+                        ]
+                    ),  # Check item with relevant info.
                 )
             )
             tqdm.write(f"Finished summarizing: {result.title}\n")
         tqdm.write("Done processing all search results.\n")
         return final_result
-    
-    def fast_start(self, query: str, num_result: int, max_workers: int | None = None) -> list[dict]:
+
+    def fast_start(
+        self, query: str, num_result: int, max_workers: int | None = None
+    ) -> list[dict]:
         """
         A convenience wrapper that searches the Web, fetches the content of each hit,
         breaks the text into token‑limited chunks, and asks a language‑model “summarizer”
@@ -249,7 +278,9 @@ class InternetAgent:
                 "content": "<summarised text>",
             }
         """
-        tqdm.write(f"\nStarting search for query: '{query}' with top {num_result} results...\n")
+        tqdm.write(
+            f"\nStarting search for query: '{query}' with top {num_result} results...\n"
+        )
         search_results = search(query, advanced=True, num_results=num_result)
 
         # Keep only results with a title so the progress bar is accurate
@@ -277,7 +308,7 @@ class InternetAgent:
 
         tqdm.write("Done processing all search results.\n")
         return final_result
-        
+
     def _summarize_page(self, result, query: str):
         """Fetch one page and summarise it (runs in its own thread)."""
         if result.title is None:
@@ -309,9 +340,7 @@ class InternetAgent:
             query: {query}
             context: {chunk}
             """
-            summaries.append(
-                summarizer.call_message(Message(content=msg)).content
-            )
+            summaries.append(summarizer.call_message(Message(content=msg)).content)
 
         tqdm.write(f"Finished summarizing: {result.title}\n")
         return dict(
@@ -320,5 +349,4 @@ class InternetAgent:
             content="\n".join(
                 [s for s in summaries if s.strip() != "No relevant information found."]
             ),
-        )     
-    
+        )
