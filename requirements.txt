@@ -1,0 +1,6 @@
+openai
+requests
+googlesearch-python
+beautifulsoup4
+lxml
+nltk

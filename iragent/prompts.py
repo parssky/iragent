@@ -1,5 +1,4 @@
-
-AUTO_AGENT_PROMPT= """
+AUTO_AGENT_PROMPT = """
 You are the Auto Agent Manager in a multi-agent AI system.
 
 Your job is to decide which agent should handle the next step based on the output of the previous agent.

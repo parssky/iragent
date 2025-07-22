@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from .message import Message
+
 
 def get_time_now() -> str:
     """!
@@ -8,6 +10,7 @@ def get_time_now() -> str:
         return current local time as ```string```
     """
     return datetime.now()
+
 
 def simple_termination(word: str, message: Message) -> bool:
     """!
