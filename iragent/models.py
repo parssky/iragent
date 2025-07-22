@@ -191,7 +191,15 @@ class InternetAgent:
                 tqdm.write(f"Skipping result with missing title: {result.url}")
                 continue
             tqdm.write(f"\nFetching: {result.title} ({result.url})")
-            page_text = fetch_url(result.url)
+            try:
+                page_text = fetch_url(result.url)
+            except Exception as exc:
+                tqdm.write(f"Skipping {result.url}: {exc}")
+                continue
+
+            if not page_text:
+                tqdm.write(f"Skipping empty page: {result.url}")
+                return None            
             chunks = chunker(page_text, token_limit=self.chunk_size)
             sum_list = []
             tqdm.write("Searching")
@@ -316,7 +324,16 @@ class InternetAgent:
             return None
 
         tqdm.write(f"\nFetching: {result.title} ({result.url})")
-        page_text = fetch_url(result.url)
+        try:
+            page_text = fetch_url(result.url)
+        except Exception as exc:
+            tqdm.write(f"Skipping {result.url}: {exc}")
+            return None
+        
+        if not page_text:
+            tqdm.write(f"Skipping empty page: {result.url}")
+            return None        
+
         chunks = chunker(page_text, token_limit=self.chunk_size)
 
         # Ollama servers dislike shared clients; make one per thread

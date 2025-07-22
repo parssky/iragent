@@ -298,3 +298,41 @@ class Agent:
 class UserAgent:
     def __init__(self) -> None:
         self.name = "user"
+
+# A way for create simple different agents with same llm and provider
+class AgentFactory:
+    """
+    A factory class for creating Agent instances with shared configuration.
+
+    This class simplifies the process of creating multiple agents by 
+    reusing common parameters such as `base_url`, `api_key`, `model`, 
+    and `provider`. Additional agent-specific parameters can be passed 
+    through the `create_agent` method.
+
+    Attributes:
+        base_url (str): The base URL for the agent's API requests.
+        api_key (str): The API key used for authentication.
+        model (str): The model identifier used by the agent.
+        provider (str): The provider name (e.g., 'openai', 'azure', etc.).
+
+    Methods:
+        create_agent(name, **kwargs): 
+            Creates and returns a new Agent instance using the shared
+            configuration and any additional keyword arguments.    
+    """
+    def __init__(self, base_url: str, api_key: str, model: str, provider: str) -> Agent:
+        self.base_url = base_url
+        self.api_key = api_key
+        self.model = model
+        self.provider = provider
+    
+    def create_agent(self, name, **kwargs):
+        return Agent(
+            name=name,
+            base_url=self.base_url,
+            api_key=self.api_key,
+            model= self.model,
+            provider=self.provider,
+            **kwargs
+        )
+
