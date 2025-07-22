@@ -1,60 +1,64 @@
-
-from openai import OpenAI
-from typing import List, Dict, Any, Callable, get_type_hints
 import inspect
 import json
 import re
+from typing import Any, Callable, Dict, List, get_type_hints
+
 import requests
+from openai import OpenAI
+
 from .message import Message
 
 """
 We need to extract docstring of each function too.
 """
+
+
 class Agent:
     """!
     using this class we'll be able to define an agent.
     """
-    def __init__(self,
-                name: str,
-                model: str, 
-                base_url: str, 
-                api_key: str, 
-                system_prompt: str, 
-                temprature: float = 0.1,
-                max_token: int=100,
-                next_agent: str = None,
-                fn: List[Callable] = [],
-                provider: str = "openai"
-                ):
-        
+
+    def __init__(
+        self,
+        name: str,
+        model: str,
+        base_url: str,
+        api_key: str,
+        system_prompt: str,
+        temprature: float = 0.1,
+        max_token: int = 100,
+        next_agent: str = None,
+        fn: List[Callable] = [],
+        provider: str = "openai",
+    ):
         ## The platform we use for loading the large lanuage models. you should peak ```ollama``` or ```openai``` as provider.
         self.provider = provider
         ## This will be the base url in our agent for communication with llm.
         self.base_url = base_url
-        ## Your api-key will set in this variable to create a communication. 
+        ## Your api-key will set in this variable to create a communication.
         self.api_key = api_key
         ## Choose the name of the model you want to use.
         self.model = model
-        ## set tempreture for generating output from llm. 
+        ## set tempreture for generating output from llm.
         self.temprature = temprature
-        ## set max token that will be generated. 
+        ## set max token that will be generated.
         self.max_token = max_token
-        ## set system prompt that will 
-        self.system_prompt= system_prompt
-        ## set a name for the agent. 
+        ## set system prompt that will
+        self.system_prompt = system_prompt
+        ## set a name for the agent.
         self.name = name
         ## set a agent as next agent
         self.next_agent = next_agent
 
         self.function_map = {f.__name__: f for f in fn}
-        ## list of tools that available for this agent to use. 
+        ## list of tools that available for this agent to use.
         self.fn = [self.function_to_schema(f) for f in fn]
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
-    
+
     def call_message(self, message: Message) -> str:
         msgs = [
             {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": message.content}
+            {"role": "user", "content": message.content},
         ]
 
         if self.provider == "openai":
@@ -70,23 +74,16 @@ class Agent:
         @param msgs:
             this is a list of dictionary
         """
-        payload = {
-            "model": self.model,
-            "messages": msgs,
-            "stream": False
-        }
+        payload = {"model": self.model, "messages": msgs, "stream": False}
         function_payload = {
-            "tools": [
-                {
-                    "type": "function",
-                    "function": f
-                } for f in self.fn
-            ]
+            "tools": [{"type": "function", "function": f} for f in self.fn]
         }
         payload.update(function_payload)
- 
+
         try:
-            response = requests.post(f"{self.base_url.removesuffix('/v1')}/api/chat", json=payload)
+            response = requests.post(
+                f"{self.base_url.removesuffix('/v1')}/api/chat", json=payload
+            )
         except Exception as e:
             raise ValueError(f"Error calling Ollama: {str(e)}")
 
@@ -100,7 +97,7 @@ class Agent:
                 sender=self.name,
                 reciever=self.next_agent or message.sender,
                 content=reply.strip(),
-                metadata={"reply_to": message.metadata.get("message_id")}
+                metadata={"reply_to": message.metadata.get("message_id")},
             )
 
         # Handle tool call (assume one for now)
@@ -113,23 +110,19 @@ class Agent:
 
             # Add tool call + tool response to messages for a second round
             followup_msgs = msgs + [
-                {
-                    "role": "assistant",
-                    "tool_calls": tool_calls,
-                    "content": ""
-                },
+                {"role": "assistant", "tool_calls": tool_calls, "content": ""},
                 {
                     "role": "tool",
                     "tool_call_id": tool.get("id", fn_name),
                     "name": fn_name,
-                    "content": result_str
-                }
+                    "content": result_str,
+                },
             ]
 
             followup_payload = {
                 "model": self.model,
                 "messages": followup_msgs,
-                "stream": False
+                "stream": False,
             }
 
             followup_response = requests.post(
@@ -143,7 +136,7 @@ class Agent:
                 sender=self.name,
                 reciever=self.next_agent or message.sender,
                 content=final_reply.strip(),
-                metadata={"reply_to": message.metadata.get("message_id")}
+                metadata={"reply_to": message.metadata.get("message_id")},
             )
 
         # fallback if function is not found
@@ -151,8 +144,8 @@ class Agent:
             sender=self.name,
             reciever=self.next_agent or message.sender,
             content=f"Function `{fn_name}` is not defined.",
-            metadata={"reply_to": message.metadata.get("message_id")}
-        )      
+            metadata={"reply_to": message.metadata.get("message_id")},
+        )
 
     def _call_ollama_v2(self, msgs: List[Dict], message: Message) -> Message:
         """
@@ -160,21 +153,16 @@ class Agent:
         this function use openai library for comunicate for ollama.
         """
         kwargs = dict(
-            model = self.model,
-            messages = msgs,
-            max_tokens = self.max_token,
-            temperature = self.temprature
+            model=self.model,
+            messages=msgs,
+            max_tokens=self.max_token,
+            temperature=self.temprature,
         )
-        
+
         if self.fn:
-            kwargs["tools"] = [
-                {
-                    "type": "function",
-                    "function": f
-                } for f in self.fn
-            ]
+            kwargs["tools"] = [{"type": "function", "function": f} for f in self.fn]
         response = self.client.chat.completions.create(**kwargs)
-        
+
         msg = response.choices[0].message
         # for function call
         if msg.tool_calls:
@@ -184,37 +172,31 @@ class Agent:
                 result = self.function_map[fn_name](**arguments)
                 followup = self.client.chat.completions.create(
                     model=self.model,
-                    messages= msgs + [
-                        msg,
-                        {
-                            "role": "tool",
-                            "name": fn_name,
-                            "content": str(result)
-                        }
-                    ],
+                    messages=msgs
+                    + [msg, {"role": "tool", "name": fn_name, "content": str(result)}],
                     max_tokens=self.max_token,
-                    temperature=self.temprature
+                    temperature=self.temprature,
                 )
                 return Message(
                     sender=self.name,
                     reciever=self.next_agent or message.sender,
                     content=followup.choices[0].message.content.strip(),
-                    metadata={"reply_to": message.metadata.get("message_id")}
+                    metadata={"reply_to": message.metadata.get("message_id")},
                 )
-            
+
         return Message(
             sender=self.name,
             reciever=self.next_agent or message.sender,
             content=response.choices[0].message.content.strip(),
-            metadata={"reply_to": message.metadata.get("message_id")}
+            metadata={"reply_to": message.metadata.get("message_id")},
         )
-    
+
     def _call_openai(self, msgs: List[Dict], message: Message) -> Message:
         kwargs = dict(
-            model = self.model,
-            messages = msgs,
-            max_tokens = self.max_token,
-            temperature = self.temprature
+            model=self.model,
+            messages=msgs,
+            max_tokens=self.max_token,
+            temperature=self.temprature,
         )
         if self.fn:
             kwargs["functions"] = self.fn
@@ -229,34 +211,29 @@ class Agent:
                 result = self.function_map[fn_name](**arguments)
                 followup = self.client.chat.completions.create(
                     model=self.model,
-                    messages= msgs + [
+                    messages=msgs
+                    + [
                         msg,
-                        {
-                            "role": "function",
-                            "name": fn_name,
-                            "content": str(result)
-                        }
+                        {"role": "function", "name": fn_name, "content": str(result)},
                     ],
                     max_tokens=self.max_token,
-                    temperature=self.temprature
+                    temperature=self.temprature,
                 )
                 return Message(
                     sender=self.name,
                     reciever=self.next_agent or message.sender,
                     content=followup.choices[0].message.content.strip(),
-                    metadata={"reply_to": message.metadata.get("message_id")}
+                    metadata={"reply_to": message.metadata.get("message_id")},
                 )
-            
+
         return Message(
             sender=self.name,
             reciever=self.next_agent or message.sender,
             content=response.choices[0].message.content.strip(),
-            metadata={"reply_to": message.metadata.get("message_id")}
+            metadata={"reply_to": message.metadata.get("message_id")},
         )
-        
 
-
-    def function_to_schema(self,fn: Callable) -> Dict[str, Any]:
+    def function_to_schema(self, fn: Callable) -> Dict[str, Any]:
         sig = inspect.signature(fn)
         hints = get_type_hints(fn)
         doc_info = self.parse_docstring(fn)
@@ -267,17 +244,17 @@ class Agent:
             desc = doc_info["param_docs"].get(name, "No description")
             parameters[name] = {
                 "type": self.python_type_to_json_type(hint),
-                "description": desc
+                "description": desc,
             }
-            
+
         return {
             "name": fn.__name__,
             "description": inspect.getdoc(fn) or "No description provided",
             "parameters": {
                 "type": "object",
                 "properties": parameters,
-                "required": list(parameters.keys())
-            }
+                "required": list(parameters.keys()),
+            },
         }
 
     def python_type_to_json_type(self, py_type: Any) -> str:
@@ -295,7 +272,7 @@ class Agent:
             return "object"
         else:
             return "string"  # default fallback
-    
+
     def parse_docstring(self, fn: Callable) -> Dict[str, Any]:
         doc = inspect.getdoc(fn) or ""
         lines = doc.strip().splitlines()
@@ -315,10 +292,7 @@ class Agent:
         for name, _type, desc in matches:
             param_docs[name] = desc.strip()
 
-        return {
-            "description": description,
-            "param_docs": param_docs
-        }
+        return {"description": description, "param_docs": param_docs}
 
 
 class UserAgent:

@@ -1,7 +1,9 @@
+from typing import List
+
 import requests
 from bs4 import BeautifulSoup
-from typing import List
 from nltk.tokenize import sent_tokenize, word_tokenize
+
 
 def fetch_url(url: str, parser: str = "lxml") -> str:
     """
@@ -12,6 +14,7 @@ def fetch_url(url: str, parser: str = "lxml") -> str:
     page = BeautifulSoup(resp.text, parser)
     text = page.get_text(separator="\n", strip=True)
     return text
+
 
 def chunker(text: str, token_limit: int = 512) -> List[str]:
     """
@@ -26,15 +29,14 @@ def chunker(text: str, token_limit: int = 512) -> List[str]:
         sent_len = len(word_tokenize(sent))
         # If adding this sentence would exceed the limit, start a new chunk
         if current_len + sent_len > token_limit:
-            if current_chunk: 
-                chunks.append(' '.join(current_chunk))
+            if current_chunk:
+                chunks.append(" ".join(current_chunk))
             current_chunk = [sent]
             current_len = sent_len
         else:
             current_chunk.append(sent)
             current_len += sent_len
     if current_chunk:
-        chunks.append(' '.join(current_chunk))
+        chunks.append(" ".join(current_chunk))
 
     return chunks
-
