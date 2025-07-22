@@ -32,6 +32,7 @@ jobs:
           # project/runtime deps (if any)
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           # dev tools
+          pip install -e .
           pip install ruff
       - name: 🔍 Ruff lint
         run: ruff check .
