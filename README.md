@@ -72,9 +72,10 @@ res.content
 visit below url:
 https://parssky.github.io/iragent/namespacemembers.html
 
-## More Examples of usage
+## 📚 More Usage Examples
 
-visit /iragent/tree/main/example
+Explore practical examples and use cases in the [example directory](https://github.com/parssky/iragent/tree/main/example).
+
 
 ## Development
 ```bash
