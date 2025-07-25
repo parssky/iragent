@@ -2,7 +2,7 @@
 <!-- README.md -->
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/parssky/iragent/main/docs/banner.png" alt="iragent – a simple multi‑agent framework" width="70%" />
+  <img src="https://raw.githubusercontent.com/parssky/iragent/main/docs/banner.svg" alt="iragent – a simple multi‑agent framework" width="70%" />
 </p>
 
 <p align="center">
