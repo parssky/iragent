@@ -19,14 +19,14 @@
 
 ## ✨ Key features
 
-| Feature | Why it matters |
-|---------|----------------|
-| **Composable `BaseAgent`** | Plug‑and‑play tools, memories and decision strategies |
-| **Built‑in web toolbox**   | `WebSearchTool`, `WebScrapeTool`, `BrowserTool` wrap `requests`, *Google Search* and *BeautifulSoup4* utilities |
-| **Automatic reasoning loop** | ReAct‑style plan‑‑>act‑‑>observe‑‑>reflect loop, powered by the OpenAI Chat API |
-| **Vector & episodic memory** | Simple in‑RAM store + optional embedding‑based retriever |
-| **Pythonic API** | Agents are *callables*; tools are plain dataclasses; no metaprogramming magic |
-| **Lightweight deps** | Pure‑Python, ~8 MiB install; only `openai`, `requests`, `googlesearch‑python`, `bs4`, `lxml`, `nltk`:contentReference[oaicite:1]{index=1} |
+| Feature                      | Why it matters                                                                                                          |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **Composable `Agent` model** | Chain or orchestrate agents via `SimpleSequentialAgents`, `AgentManager`, and `AutoAgentManager` for flexible workflows |
+| **Auto-routing agent**       | `AutoAgentManager` uses a language model to dynamically decide the next agent in the loop                               |
+| **Web-augmented agent**      | `InternetAgent` uses `googlesearch`, `requests`, and summarizing agents to fetch and condense live web data             |
+| **Parallel summarization**   | `fast_start` method uses `ThreadPoolExecutor` to speed up web content processing                                        |
+| **Prompt-driven summaries**  | Summarization is driven by customizable system prompts and token-limited chunking for accurate context                  |
+| **Simple, Pythonic design**  | Agents are lightweight Python classes with callable message interfaces—no metaclasses or hidden magic                   |
 
 ---
 
@@ -39,27 +39,32 @@ pip install iragent
 pip install git+https://github.com/parssky/iragent.git
 ```
 
-Set your OpenAI key once:
-```bash
-export OPENAI_API_KEY="sk‑..."
-```
-
 ## ⚡ Quick start
 ```python
-from iragent import agent
+from iragent.tools import get_time_now, simple_termination
 
-researcher = Agent(
-    name="Researcher‑GPT",
-    system_prompt="You are an expert researcher.",
-    tools=[search, scrape],
-    base_url= ""
-    api_key= ""
-    model= ""
-    provider= "openai" # or ollama for local use
+factory = AgentFactory(base_url,api_key, model, provider)
+
+agent1 = factory.create_agent(name="time_reader",
+                            system_prompt="You are that one who can read time. there is a fucntion named get_time_now(), you can call it whether user ask about time or date.",
+                            fn=[get_time_now]
+                            )
+agent2 = factory.create_agent(name="date_exctractor", 
+                              system_prompt= "You are that one who extract time from date. only return time.")
+agent3 = factory.create_agent(name="date_converter", 
+                              system_prompt= "You are that one who write the time in Persian. when you wrote time, then in new line write [#finish#]")
+
+manager = AutoAgentManager(
+    init_message="what time is it?",
+    agents= [agent1,agent2,agent3],
+    first_agent=agent1,
+    max_round=5,
+    termination_fn=simple_termination,
+    termination_word="[#finish#]"
 )
 
-answer = agent.start("Who won the Nobel Prize in Physics in 2024 and why?")
-print(answer)
+res = manager.start()
+res.content
 ```
 
 ## More docs
