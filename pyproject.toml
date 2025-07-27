@@ -13,6 +13,7 @@ dependencies = [
     "beautifulsoup4",
     "lxml",
     "nltk",
+    "pytest"
 ]
 
 [build-system]

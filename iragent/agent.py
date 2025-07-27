@@ -30,6 +30,7 @@ class Agent:
         next_agent: str = None,
         fn: List[Callable] = [],
         provider: str = "openai",
+        response_format: str = None,
     ):
         ## The platform we use for loading the large lanuage models. you should peak ```ollama``` or ```openai``` as provider.
         self.provider = provider
@@ -55,14 +56,17 @@ class Agent:
         self.fn = [self.function_to_schema(f) for f in fn]
         self.client = OpenAI(api_key=self.api_key, base_url=self.base_url)
 
-    def call_message(self, message: Message) -> str:
+        # Support Structured output 
+        self.response_format = response_format
+
+    def call_message(self, message: Message, **kwargs) -> str:
         msgs = [
             {"role": "system", "content": self.system_prompt},
             {"role": "user", "content": message.content},
         ]
 
         if self.provider == "openai":
-            return self._call_openai(msgs=msgs, message=message)
+            return self._call_openai(msgs=msgs, message=message, **kwargs)
         if self.provider == "ollama":
             return self._call_ollama_v2(msgs=msgs, message=message)
         else:
@@ -191,17 +195,20 @@ class Agent:
             metadata={"reply_to": message.metadata.get("message_id")},
         )
 
-    def _call_openai(self, msgs: List[Dict], message: Message) -> Message:
-        kwargs = dict(
+    def _call_openai(self, msgs: List[Dict], message: Message, **kwargs) -> Message:
+        args = dict(
             model=self.model,
             messages=msgs,
             max_tokens=self.max_token,
             temperature=self.temprature,
+            **kwargs
         )
+        if self.response_format:
+            args["response_format"] = self.response_format
         if self.fn:
-            kwargs["functions"] = self.fn
-            kwargs["function_call"] = "auto"
-        response = self.client.chat.completions.create(**kwargs)
+            args["functions"] = self.fn
+            args["function_call"] = "auto"
+        response = self.client.chat.completions.create(**args)
         msg = response.choices[0].message
         # for function call
         if msg.function_call:
@@ -225,6 +232,18 @@ class Agent:
                     content=followup.choices[0].message.content.strip(),
                     metadata={"reply_to": message.metadata.get("message_id")},
                 )
+        # Handle response format
+        if self.response_format:
+            try:
+                parsed_content = json.loads(msg.content)
+            except json.JSONDecodeError:
+                parsed_content = {"error": "Invalid JSON response", "raw": msg.content}
+            return Message(
+                sender=self.name,
+                reciever=self.next_agent or message.sender,
+                content=parsed_content,
+                metadata={"reply_to": message.metadata.get("message_id")},
+            )
 
         return Message(
             sender=self.name,
@@ -320,7 +339,7 @@ class AgentFactory:
             Creates and returns a new Agent instance using the shared
             configuration and any additional keyword arguments.    
     """
-    def __init__(self, base_url: str, api_key: str, model: str, provider: str) -> Agent:
+    def __init__(self, base_url: str, api_key: str, model: str, provider: str = "openai") -> Agent:
         self.base_url = base_url
         self.api_key = api_key
         self.model = model
