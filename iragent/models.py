@@ -5,6 +5,7 @@ from googlesearch import search
 from tqdm import tqdm
 
 from .agent import Agent
+from .memory import BaseMemory
 from .message import Message
 from .prompts import AUTO_AGENT_PROMPT, SUMMARIZER_PROMPT
 from .utility import chunker, fetch_url
@@ -81,6 +82,7 @@ class AutoAgentManager:
             api_key=first_agent.api_key,
             temprature=0.1,
             max_token=32,
+            memory=BaseMemory
         )
         self.termination_fn = termination_fn
         self.max_round = max_round

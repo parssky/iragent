@@ -27,6 +27,10 @@
 | **Parallel summarization**   | `fast_start` method uses `ThreadPoolExecutor` to speed up web content processing                                        |
 | **Prompt-driven summaries**  | Summarization is driven by customizable system prompts and token-limited chunking for accurate context                  |
 | **Simple, Pythonic design**  | Agents are lightweight Python classes with callable message interfaces—no metaclasses or hidden magic                   |
+| **Memory, BaseMemory**       | BaseMemory provides foundational memory management for agents, storing conversation history and message objects. It supports adding, retrieving, and clearing memory, offering a flexible design for session-based context, interaction history, or task-specific memory across multiple agent invocations. Ideal for scenarios where the agent needs to recall past interactions for continuity.                                                                                                  |
+
+
+
 
 ---
 
