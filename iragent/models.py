@@ -8,6 +8,7 @@ from .agent import Agent
 from .message import Message
 from .prompts import AUTO_AGENT_PROMPT, SUMMARIZER_PROMPT
 from .utility import chunker, fetch_url
+from .memory import BaseMemory
 
 
 class SimpleSequentialAgents:
@@ -81,6 +82,7 @@ class AutoAgentManager:
             api_key=first_agent.api_key,
             temprature=0.1,
             max_token=32,
+            memory=BaseMemory
         )
         self.termination_fn = termination_fn
         self.max_round = max_round

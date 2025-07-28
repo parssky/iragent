@@ -31,6 +31,7 @@ class Agent:
         fn: List[Callable] = [],
         provider: str = "openai",
         response_format: str = None,
+        memory = None
     ):
         ## The platform we use for loading the large lanuage models. you should peak ```ollama``` or ```openai``` as provider.
         self.provider = provider
@@ -59,18 +60,37 @@ class Agent:
         # Support Structured output 
         self.response_format = response_format
 
+        # Set Memory
+        self.memory = memory() if memory is not None else None
+
     def call_message(self, message: Message, **kwargs) -> str:
-        msgs = [
-            {"role": "system", "content": self.system_prompt},
-            {"role": "user", "content": message.content},
-        ]
+        
+        msgs = [{"role": "system", "content": self.system_prompt}]
+
+        # If agent has a history 
+        if self.memory:
+            history = self.memory.get_history()
+            if history:
+                msgs.extend(history)       
+
+        user_msg = {"role": "user", "content": message.content}
+        msgs.append(user_msg)
+           
+        # Add to memory if it is first time
+        if self.memory:
+            self.memory.add_history(user_msg)
 
         if self.provider == "openai":
-            return self._call_openai(msgs=msgs, message=message, **kwargs)
-        if self.provider == "ollama":
-            return self._call_ollama_v2(msgs=msgs, message=message)
+            res =  self._call_openai(msgs=msgs, message=message, **kwargs)
+        elif self.provider == "ollama":
+            res = self._call_ollama_v2(msgs=msgs, message=message)
         else:
             raise ValueError(f"Unsupported provider: {self.provider}")
+        
+        # Add Assistant
+        self.memory.add_history({"role": "assistant", "content": res.content})
+        self.memory.add_message(res)
+        return res
 
     def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
         """!
