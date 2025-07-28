@@ -5,10 +5,10 @@ from googlesearch import search
 from tqdm import tqdm
 
 from .agent import Agent
+from .memory import BaseMemory
 from .message import Message
 from .prompts import AUTO_AGENT_PROMPT, SUMMARIZER_PROMPT
 from .utility import chunker, fetch_url
-from .memory import BaseMemory
 
 
 class SimpleSequentialAgents:

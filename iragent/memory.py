@@ -1,5 +1,6 @@
 from .message import Message
 
+
 class BaseMemory:
     """
     BaseMemory is a foundational memory management class for conversational agents.
