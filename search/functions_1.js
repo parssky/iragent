@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['call_5fmessage_0',['call_message',['../classiragent_1_1agent_1_1Agent.html#a5e89904ae33fad92bb08957486f16ba4',1,'iragent::agent::Agent']]],
-  ['chunker_1',['chunker',['../namespaceiragent_1_1utility.html#a844462e02b70ab5f4dc30a616e3abd8b',1,'iragent::utility']]],
-  ['create_5fagent_2',['create_agent',['../classiragent_1_1agent_1_1AgentFactory.html#ad7dbcc44504c208aa50938e10b771406',1,'iragent::agent::AgentFactory']]]
+  ['add_5fhistory_0',['add_history',['../classiragent_1_1memory_1_1BaseMemory.html#ac7d3a492465dcbc47debcf0a1f9472bb',1,'iragent::memory::BaseMemory']]],
+  ['add_5fmessage_1',['add_message',['../classiragent_1_1memory_1_1BaseMemory.html#aef8178fec6ba6bf17c88db1434c86c7d',1,'iragent::memory::BaseMemory']]]
 ];

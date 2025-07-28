@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['test_5fagent_5fsequence_0',['test_agent_sequence',['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#ac72a94318c832be69309d3265ffd919f',1,'tests::test_simple_sequence::TestSimpleSequentialAgents']]],
-  ['test_5fagent_5fsupports_5fresponse_5fformat_1',['test_agent_supports_response_format',['../namespacetests_1_1test__structured__output.html#ac9ee7a82894543dab16dded5096032ed',1,'tests::test_structured_output']]],
-  ['test_5fauto_5fagent_5frouting_2',['test_auto_agent_routing',['../classtests_1_1test__auto__agent__manager_1_1TestAutoAgentManager.html#a0887041d6e3231f7962ded2ff6a2fbf3',1,'tests::test_auto_agent_manager::TestAutoAgentManager']]]
+  ['setup_0',['setUp',['../classtests_1_1test__auto__agent__manager_1_1TestAutoAgentManager.html#ad213973ec8106a5fd25b2f5670702940',1,'tests.test_auto_agent_manager.TestAutoAgentManager.setUp()'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a9e17e545158c6ec7e2065058220e6a2b',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.setUp()']]],
+  ['simple_5ftermination_1',['simple_termination',['../namespaceiragent_1_1tools.html#a25a8a80228695da2c3ddfe64cfa81df8',1,'iragent::tools']]],
+  ['start_2',['start',['../classiragent_1_1models_1_1SimpleSequentialAgents.html#a8fa92def3352363a6819b708a8856a9e',1,'iragent.models.SimpleSequentialAgents.start()'],['../classiragent_1_1models_1_1AgentManager.html#a4b78098c7026a201d226692a1b0258c7',1,'iragent.models.AgentManager.start()'],['../classiragent_1_1models_1_1AutoAgentManager.html#a100f85564a47e90cb8f0414682baf65d',1,'iragent.models.AutoAgentManager.start()'],['../classiragent_1_1models_1_1InternetAgent.html#ae14e8878d1f3eafe7f7aa9fb2ce921c4',1,'iragent.models.InternetAgent.start()']]]
 ];

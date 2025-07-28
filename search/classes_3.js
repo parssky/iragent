@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['simplesequentialagents_0',['SimpleSequentialAgents',['../classiragent_1_1models_1_1SimpleSequentialAgents.html',1,'iragent::models']]]
+  ['message_0',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]]
 ];

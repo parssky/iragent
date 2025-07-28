@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['message_0',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]]
+  ['internetagent_0',['InternetAgent',['../classiragent_1_1models_1_1InternetAgent.html',1,'iragent::models']]]
 ];

@@ -103,8 +103,8 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a336e10c5700d8b3a707fc9eb4a5a2d7b" id="r_a336e10c5700d8b3a707fc9eb4a5a2d7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a336e10c5700d8b3a707fc9eb4a5a2d7b">__init__</a> (self, str <a class="el" href="#abf51de05a80dfb65a977c768acd02429">name</a>, str <a class="el" href="#a8678b9e776c81a98f0e5c1a0846faa6f">model</a>, str <a class="el" href="#af0df5b97487f9061c6dcb64948bdf07f">base_url</a>, str <a class="el" href="#ae5311ed530faeaeb5ce2bc06fd67a79f">api_key</a>, str <a class="el" href="#a693c5467c701b66355614328ea1a4d75">system_prompt</a>, float <a class="el" href="#a7c71849bf6e0ff3bfe772758f011fa54">temprature</a>=0.1, int <a class="el" href="#af1ab06bab7bab10b3b92bf588d68c86a">max_token</a>=100, str <a class="el" href="#a53611e0507bcba238ea117d8d542de91">next_agent</a>=None, List[Callable] <a class="el" href="#a52ee8028043916aa6c633c168ab3f0b4">fn</a>=[], str <a class="el" href="#aa87ef2efdc790fac1d65ecded02a3c36">provider</a>=&quot;openai&quot;, str <a class="el" href="#a8b0376d66ee68685d935c8d448a83b6e">response_format</a>=None)</td></tr>
-<tr class="separator:a336e10c5700d8b3a707fc9eb4a5a2d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b77eff1046bd86d4f58189328723283" id="r_a5b77eff1046bd86d4f58189328723283"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b77eff1046bd86d4f58189328723283">__init__</a> (self, str <a class="el" href="#abf51de05a80dfb65a977c768acd02429">name</a>, str <a class="el" href="#a8678b9e776c81a98f0e5c1a0846faa6f">model</a>, str <a class="el" href="#af0df5b97487f9061c6dcb64948bdf07f">base_url</a>, str <a class="el" href="#ae5311ed530faeaeb5ce2bc06fd67a79f">api_key</a>, str <a class="el" href="#a693c5467c701b66355614328ea1a4d75">system_prompt</a>, float <a class="el" href="#a7c71849bf6e0ff3bfe772758f011fa54">temprature</a>=0.1, int <a class="el" href="#af1ab06bab7bab10b3b92bf588d68c86a">max_token</a>=100, str <a class="el" href="#a53611e0507bcba238ea117d8d542de91">next_agent</a>=None, List[Callable] <a class="el" href="#a52ee8028043916aa6c633c168ab3f0b4">fn</a>=[], str <a class="el" href="#aa87ef2efdc790fac1d65ecded02a3c36">provider</a>=&quot;openai&quot;, str <a class="el" href="#a8b0376d66ee68685d935c8d448a83b6e">response_format</a>=None, <a class="el" href="#aff2753589412be32a99374b94ea48dec">memory</a>=None)</td></tr>
+<tr class="separator:a5b77eff1046bd86d4f58189328723283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e89904ae33fad92bb08957486f16ba4" id="r_a5e89904ae33fad92bb08957486f16ba4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e89904ae33fad92bb08957486f16ba4">call_message</a> (self, <a class="el" href="classiragent_1_1message_1_1Message.html">Message</a> message, **kwargs)</td></tr>
 <tr class="separator:a5e89904ae33fad92bb08957486f16ba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc5a4b8aa83acc9b9929a8e919d5abe" id="r_abbc5a4b8aa83acc9b9929a8e919d5abe"><td class="memItemLeft" align="right" valign="top">Dict[str, Any]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbc5a4b8aa83acc9b9929a8e919d5abe">function_to_schema</a> (self, Callable <a class="el" href="#a52ee8028043916aa6c633c168ab3f0b4">fn</a>)</td></tr>
@@ -152,6 +152,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ae82806cd5557b0e8cc570fd7585847ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b0376d66ee68685d935c8d448a83b6e" id="r_a8b0376d66ee68685d935c8d448a83b6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b0376d66ee68685d935c8d448a83b6e">response_format</a> = response_format</td></tr>
 <tr class="separator:a8b0376d66ee68685d935c8d448a83b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff2753589412be32a99374b94ea48dec" id="r_aff2753589412be32a99374b94ea48dec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff2753589412be32a99374b94ea48dec">memory</a> = memory() if memory is not None else None</td></tr>
+<tr class="separator:aff2753589412be32a99374b94ea48dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -166,8 +168,8 @@ Protected Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>using this class we'll be able to define an agent. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a336e10c5700d8b3a707fc9eb4a5a2d7b" name="a336e10c5700d8b3a707fc9eb4a5a2d7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a336e10c5700d8b3a707fc9eb4a5a2d7b">&#9670;&#160;</a></span>__init__()</h2>
+<a id="a5b77eff1046bd86d4f58189328723283" name="a5b77eff1046bd86d4f58189328723283"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b77eff1046bd86d4f58189328723283">&#9670;&#160;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +232,12 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">str </td>          <td class="paramname"><span class="paramname"><em>response_format</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
+          <td class="paramtype">str </td>          <td class="paramname"><span class="paramname"><em>response_format</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>memory</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -534,6 +541,20 @@ this function use openai library for comunicate for ollama.
 </div><div class="memdoc">
 
 <p>set max token that will be generated. </p>
+
+</div>
+</div>
+<a id="aff2753589412be32a99374b94ea48dec" name="aff2753589412be32a99374b94ea48dec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff2753589412be32a99374b94ea48dec">&#9670;&#160;</a></span>memory</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">iragent.agent.Agent.memory = memory() if memory is not None else None</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

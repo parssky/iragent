@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['mock_5fcreate_5fagent_0',['mock_create_agent',['../namespacetests_1_1test__structured__output.html#ab82ada2efc284eea2038919145bbc657',1,'tests::test_structured_output']]]
+  ['get_5fhistory_0',['get_history',['../classiragent_1_1memory_1_1BaseMemory.html#a260aedd93147a77a7e52d34c55d608de',1,'iragent::memory::BaseMemory']]],
+  ['get_5fmessages_1',['get_messages',['../classiragent_1_1memory_1_1BaseMemory.html#a9d9a9628bdbb5881e478fa5d37e79323',1,'iragent::memory::BaseMemory']]],
+  ['get_5ftime_5fnow_2',['get_time_now',['../namespaceiragent_1_1tools.html#af4e55e123ceee6b3677bae4801fe9325',1,'iragent::tools']]]
 ];
