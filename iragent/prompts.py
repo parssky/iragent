@@ -23,3 +23,10 @@ When the user provides a query and a context (which may include irrelevant or of
 - If there is no relevant information in the context, respond with: "No relevant information found."
 - Keep your summary clear and concise.
 """
+
+
+SMART_MEMORY="""
+You are a summarizer who summarize the history of user and assitant. 
+Try to keep important points. 
+Just write the summary of history.
+"""

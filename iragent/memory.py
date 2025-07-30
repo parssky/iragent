@@ -1,5 +1,6 @@
 from .message import Message
-
+from .agent import AgentFactory
+from .prompts import SMART_MEMORY
 
 class BaseMemory:
     """
@@ -52,3 +53,31 @@ class BaseMemory:
 
     def clear_messages(self) -> None:
         self.messages.clear()
+
+
+# Smart Memory that keep memory summarize and safe
+class SmartMemory(BaseMemory):
+    def __init__(self, agent_factory: AgentFactory, memory_limit: int=10) -> None:
+        super().__init__()
+        self.memory_limit = memory_limit
+        self.summarizer = agent_factory.create_agent(
+            name="summarizer",
+            system_prompt=SMART_MEMORY,
+            max_token= 128,
+            memory=None
+        )
+    
+    def add_history(self, msg: dict | list[dict]) -> None:
+        super().add_history(msg)
+        if len(self.get_history()) > self.memory_limit:
+            self._summarize_history()
+    
+    def _summarize_history(self):
+        content = "\n".join(f"{m["role"]}: {m["content"]}" for m in self.get_history())
+        msg = Message(content=content)
+        summarized = self.summarizer.call_message(msg)
+        self.clear_history()
+        self.add_history({"role": "system", "content": f"(summary) {summarized}"})
+
+
+        
