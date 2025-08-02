@@ -88,8 +88,9 @@ class Agent:
             raise ValueError(f"Unsupported provider: {self.provider}")
         
         # Add Assistant
-        self.memory.add_history({"role": "assistant", "content": res.content})
-        self.memory.add_message(res)
+        if self.memory:
+            self.memory.add_history({"role": "assistant", "content": res.content})
+            self.memory.add_message(res)
         return res
 
     def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
