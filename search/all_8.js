@@ -4,11 +4,12 @@ var searchData=
   ['max_5ftoken_1',['max_token',['../classiragent_1_1agent_1_1Agent.html#af1ab06bab7bab10b3b92bf588d68c86a',1,'iragent::agent::Agent']]],
   ['memory_2',['memory',['../classiragent_1_1agent_1_1Agent.html#aff2753589412be32a99374b94ea48dec',1,'iragent::agent::Agent']]],
   ['memory_2epy_3',['memory.py',['../memory_8py.html',1,'']]],
-  ['message_4',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]],
-  ['message_2epy_5',['message.py',['../message_8py.html',1,'']]],
-  ['messages_6',['messages',['../classiragent_1_1memory_1_1BaseMemory.html#adc998e4c8d648a4f2355a1eb9e9b5e0c',1,'iragent::memory::BaseMemory']]],
-  ['metadata_7',['metadata',['../classiragent_1_1message_1_1Message.html#a4e88bf06d7fe1a239a5f0c4d107ad738',1,'iragent::message::Message']]],
-  ['mock_5fcreate_5fagent_8',['mock_create_agent',['../namespacetests_1_1test__structured__output.html#ab82ada2efc284eea2038919145bbc657',1,'tests::test_structured_output']]],
-  ['model_9',['model',['../classiragent_1_1agent_1_1Agent.html#a8678b9e776c81a98f0e5c1a0846faa6f',1,'iragent.agent.Agent.model'],['../classiragent_1_1agent_1_1AgentFactory.html#aa7ee5e7c5c059ab3e789635cc033b41c',1,'iragent.agent.AgentFactory.model'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a6429f600373df055178e1e4ae4f4bab1',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.model']]],
-  ['models_2epy_10',['models.py',['../models_8py.html',1,'']]]
+  ['memory_5flimit_4',['memory_limit',['../classiragent_1_1memory_1_1SummarizerMemory.html#a32776dc817c8e4a2080a8ec32fed9558',1,'iragent::memory::SummarizerMemory']]],
+  ['message_5',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]],
+  ['message_2epy_6',['message.py',['../message_8py.html',1,'']]],
+  ['messages_7',['messages',['../classiragent_1_1memory_1_1BaseMemory.html#adc998e4c8d648a4f2355a1eb9e9b5e0c',1,'iragent::memory::BaseMemory']]],
+  ['metadata_8',['metadata',['../classiragent_1_1message_1_1Message.html#a4e88bf06d7fe1a239a5f0c4d107ad738',1,'iragent::message::Message']]],
+  ['mock_5fcreate_5fagent_9',['mock_create_agent',['../namespacetests_1_1test__structured__output.html#ab82ada2efc284eea2038919145bbc657',1,'tests::test_structured_output']]],
+  ['model_10',['model',['../classiragent_1_1agent_1_1Agent.html#a8678b9e776c81a98f0e5c1a0846faa6f',1,'iragent.agent.Agent.model'],['../classiragent_1_1agent_1_1AgentFactory.html#aa7ee5e7c5c059ab3e789635cc033b41c',1,'iragent.agent.AgentFactory.model'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a6429f600373df055178e1e4ae4f4bab1',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.model']]],
+  ['models_2epy_11',['models.py',['../models_8py.html',1,'']]]
 ];
