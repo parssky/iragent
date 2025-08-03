@@ -56,14 +56,14 @@ class BaseMemory:
 
 
 # Smart Memory that keep memory summarize and safe
-class SmartMemory(BaseMemory):
+class SummarizerMemory(BaseMemory):
     def __init__(self, agent_factory: AgentFactory, memory_limit: int=10) -> None:
         super().__init__()
         self.memory_limit = memory_limit
         self.summarizer = agent_factory.create_agent(
             name="summarizer",
             system_prompt=SMART_MEMORY,
-            max_token= 128,
+            max_token= 256,
             memory=None
         )
     
@@ -77,7 +77,7 @@ class SmartMemory(BaseMemory):
         msg = Message(content=content)
         summarized = self.summarizer.call_message(msg)
         self.clear_history()
-        self.add_history({"role": "system", "content": f"(summary) {summarized}"})
+        self.add_history({"role": "system", "content": f"(summary) {summarized.content}"})
 
 
         
