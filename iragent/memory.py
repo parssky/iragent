@@ -1,6 +1,7 @@
-from .message import Message
 from .agent import AgentFactory
+from .message import Message
 from .prompts import SMART_MEMORY
+
 
 class BaseMemory:
     """
@@ -73,7 +74,7 @@ class SummarizerMemory(BaseMemory):
             self._summarize_history()
     
     def _summarize_history(self):
-        content = "\n".join(f"{m["role"]}: {m["content"]}" for m in self.get_history())
+        content = "\n".join(f"{m['role']}: {m['content']}" for m in self.get_history())
         msg = Message(content=content)
         summarized = self.summarizer.call_message(msg)
         self.clear_history()
