@@ -58,6 +58,28 @@ class BaseMemory:
 
 # Smart Memory that keep memory summarize and safe
 class SummarizerMemory(BaseMemory):
+    """
+    A memory manager that summarizes conversation history when it exceeds a specified limit.
+
+    This class extends `BaseMemory` and adds summarization capabilities using a summarizer agent.
+    When the number of stored messages exceeds `memory_limit`, the full conversation history is
+    summarized into a compact representation and stored as a single system message.
+
+    Attributes:
+        memory_limit (int): The maximum number of messages to retain before triggering summarization.
+        summarizer (Agent): A stateless agent used to generate a summary of the current conversation history.
+
+    Args:
+        agent_factory (AgentFactory): Factory used to create the summarizer agent.
+        memory_limit (int, optional): Maximum number of messages before summarizing. Defaults to 10.
+
+    Methods:
+        add_history(msg):
+            Adds new message(s) to memory and summarizes history if the limit is exceeded.
+
+        _summarize_history():
+            Internal method that compresses the full message history into a single summary message.
+    """    
     def __init__(self, agent_factory: AgentFactory, memory_limit: int=10) -> None:
         super().__init__()
         self.memory_limit = memory_limit
