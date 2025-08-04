@@ -10,6 +10,7 @@
   <img alt="Python" src="https://img.shields.io/badge/python-3.10%2B-blue">
   <img alt="License" src="https://img.shields.io/badge/License-MIT-yellow.svg">
   <img alt="CI" src="https://github.com/parssky/iragent/actions/workflows/build.yml/badge.svg">
+  <a href="https://pepy.tech/projects/iragent"><img src="https://static.pepy.tech/badge/iragent" alt="PyPI Downloads"></a>
 </p>
 
 > **iragent** is a simple framework for building OpenAI‑Like, tool‑using software agents.  
