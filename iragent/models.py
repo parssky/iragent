@@ -4,12 +4,12 @@ from typing import Callable, List
 from googlesearch import search
 from tqdm import tqdm
 
-from .agent import Agent
+from .agent import Agent, AgentFactory
 from .memory import BaseMemory
 from .message import Message
 from .prompts import AUTO_AGENT_PROMPT, SUMMARIZER_PROMPT
 from .utility import chunker, fetch_url
-
+from .tools import simple_termination
 
 class SimpleSequentialAgents:
     def __init__(self, agents: List[Agent], init_message: str):
@@ -369,3 +369,56 @@ class InternetAgent:
                 [s for s in summaries if s.strip() != "No relevant information found."]
             ),
         )
+
+SMART_PROMPT_WRITER="""
+You are a smart prompt writer who write system_prompt based on input and expected output. 
+Just write the prompt.
+
+data is like :
+input_data:
+hello i go shopping and buy some bananas and apples.
+
+expected_output:
+bannas and apples.
+"""
+SMART_PROMPT_READER="""
+You are a smart prompt evaluator that evaluate the written prompt based on input and output. 
+So user provide you the prompt and input and output. You find the weakness.
+Think general and do not focus only on that input and output.
+if the prompt was not good reaturn your feeadback to prompt_maker.
+"""
+
+class SmartPrompt:
+    def __init__(self, agent_factory: AgentFactory) -> None:
+        self.writer = agent_factory.create_agent(
+            name="prompt_maker",
+            temprature=0.1,
+            system_prompt=SMART_PROMPT_WRITER,
+            max_token = 512
+        )
+        self.reader = agent_factory.create_agent(
+            name="prompt_reader",
+            temprature=0.1,
+            system_prompt=SMART_PROMPT_READER,
+            max_token = 512
+        )
+        self.manager = AutoAgentManager(
+            init_message="",
+            agents= [self.writer,self.reader],
+            first_agent=self.writer,
+            max_round=5,
+            termination_fn=simple_termination,
+            termination_word="[#finish#]"
+        )
+    
+    def generate(self, input: str, output: str) -> str:
+        msg = """
+        Here is the input example :
+        {}
+        
+        Here is the output example i have expected from system.
+        {}
+
+        """
+        self.manager.init_msg.content = msg.format(input, output)
+        return self.manager.start()

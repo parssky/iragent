@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from .message import Message
-
+from .agent import AgentFactory
 
 def get_time_now() -> str:
     """!
@@ -27,3 +27,15 @@ def simple_termination(word: str, message: Message) -> bool:
         return True
     else:
         return False
+
+def agent_test(input: str, prompt: str, cfg: dict) -> str:
+    """
+    This function create an agent with that system_prompt and pass the input to this and get the output.  
+    """
+    agent_factory = AgentFactory(cfg)
+    agent = agent_factory.create_agent(
+        name= "Solo",
+        system_prompt = prompt
+    )
+    msg = Message(content=input)
+    return agent.call_message(msg).content
