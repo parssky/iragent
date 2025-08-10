@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from .agent import AgentFactory
 from .message import Message
 
 
@@ -27,3 +28,15 @@ def simple_termination(word: str, message: Message) -> bool:
         return True
     else:
         return False
+
+def agent_test(input: str, prompt: str, cfg: dict) -> str:
+    """
+    This function create an agent with that system_prompt and pass the input to this and get the output.  
+    """
+    agent_factory = AgentFactory(cfg)
+    agent = agent_factory.create_agent(
+        name= "Solo",
+        system_prompt = prompt
+    )
+    msg = Message(content=input)
+    return agent.call_message(msg).content
