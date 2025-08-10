@@ -4,6 +4,8 @@ import requests
 from bs4 import BeautifulSoup
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+from .agent import Agent, AgentFactory
+
 
 def fetch_url(url: str, parser: str = "lxml") -> str:
     """
@@ -40,3 +42,14 @@ def chunker(text: str, token_limit: int = 512) -> List[str]:
         chunks.append(" ".join(current_chunk))
 
     return chunks
+
+def create_agents(agents_list: list[dict], agent_factory: AgentFactory) -> list[Agent]:
+    agents: list[Agent] = []
+    for agent in agents_list:
+        agents.append(
+            agent_factory.create_agent(
+                name=agent["name"],
+                system_prompt = agent["system_prompt"]
+            )
+        )
+    return agents

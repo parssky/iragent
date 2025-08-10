@@ -1,7 +1,8 @@
 from datetime import datetime
 
-from .message import Message
 from .agent import AgentFactory
+from .message import Message
+
 
 def get_time_now() -> str:
     """!
