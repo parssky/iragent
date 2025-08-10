@@ -115,7 +115,42 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a34744f6c5bc8024f0c5b0ea9020714a9" id="r_a34744f6c5bc8024f0c5b0ea9020714a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34744f6c5bc8024f0c5b0ea9020714a9">init_msg</a></td></tr>
 <tr class="separator:a34744f6c5bc8024f0c5b0ea9020714a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A simple multi-agent execution manager that routes messages between 
+agents in a fixed sequence, with optional early termination.
+
+Unlike `AutoAgentManager`, this class does not dynamically decide 
+the next agent to route to — it executes in a predefined order 
+based on the message's `reciever` field.
+
+Attributes:
+    termination_fn (Callable): Optional function to determine when the 
+        workflow should stop early.
+    max_round (int): Maximum number of message-passing iterations allowed.
+    agents (dict[str, Agent]): Dictionary of available agents, keyed by 
+        agent name.
+    init_msg (Message): The initial message passed to the first agent.
+
+Args:
+    init_message (str): The initial request or instruction from the user.
+    agents (List[Agent]): The list of agents participating in the workflow.
+    first_agent (Agent): The first agent to receive the initial message.
+    max_round (int, optional): Maximum number of routing rounds. Defaults to 3.
+    termination_fn (Callable, optional): A function to check if the process 
+        should terminate early. Defaults to None.
+
+Methods:
+    start() -&gt; Message:
+        Executes the multi-agent workflow starting with `init_message`.  
+        The process:
+            - Sends the message to the current agent.
+            - Evaluates termination conditions after each response.
+            - Passes the output directly to the next agent defined by the 
+              `reciever` field in the message.
+            - Stops when the termination function returns True or the 
+              maximum round count is reached.
+        Returns the final `Message` from the last executed agent.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a00d0872ccab4f7020511b14dd922ec22" name="a00d0872ccab4f7020511b14dd922ec22"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00d0872ccab4f7020511b14dd922ec22">&#9670;&#160;</a></span>__init__()</h2>
 

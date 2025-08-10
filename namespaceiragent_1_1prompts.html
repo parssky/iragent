@@ -103,8 +103,30 @@ Variables</h2></td></tr>
 <tr class="separator:a2af51c88f9c459ff1ae9c393d494ba8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4d21f28e7af11bf8f9a256ecb205e7c" id="r_ab4d21f28e7af11bf8f9a256ecb205e7c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4d21f28e7af11bf8f9a256ecb205e7c">SMART_MEMORY</a></td></tr>
 <tr class="separator:ab4d21f28e7af11bf8f9a256ecb205e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ef6e6fb31d85c09d6e15570f98b6d4" id="r_ae2ef6e6fb31d85c09d6e15570f98b6d4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2ef6e6fb31d85c09d6e15570f98b6d4">SMART_PROMPT_WRITER</a></td></tr>
+<tr class="separator:ae2ef6e6fb31d85c09d6e15570f98b6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af598bfce029a31e3bcb32f8d8022fc59" id="r_af598bfce029a31e3bcb32f8d8022fc59"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af598bfce029a31e3bcb32f8d8022fc59">SMART_PROMPT_READER</a></td></tr>
+<tr class="separator:af598bfce029a31e3bcb32f8d8022fc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d926cd5607a071194935dfdcea2885d" id="r_a2d926cd5607a071194935dfdcea2885d"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2d926cd5607a071194935dfdcea2885d">TASK_GENERATOR</a></td></tr>
+<tr class="separator:a2d926cd5607a071194935dfdcea2885d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a842306cfd275ce2d28d5a8d006ee78a8" id="r_a842306cfd275ce2d28d5a8d006ee78a8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a842306cfd275ce2d28d5a8d006ee78a8">AGENT_GENERATOR</a></td></tr>
+<tr class="separator:a842306cfd275ce2d28d5a8d006ee78a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a842306cfd275ce2d28d5a8d006ee78a8" name="a842306cfd275ce2d28d5a8d006ee78a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a842306cfd275ce2d28d5a8d006ee78a8">&#9670;&#160;</a></span>AGENT_GENERATOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.AGENT_GENERATOR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afab50c644bec51fcb93eda579981c8c2" name="afab50c644bec51fcb93eda579981c8c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afab50c644bec51fcb93eda579981c8c2">&#9670;&#160;</a></span>AUTO_AGENT_PROMPT</h2>
 
@@ -162,6 +184,53 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="af598bfce029a31e3bcb32f8d8022fc59" name="af598bfce029a31e3bcb32f8d8022fc59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af598bfce029a31e3bcb32f8d8022fc59">&#9670;&#160;</a></span>SMART_PROMPT_READER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.SMART_PROMPT_READER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>= <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are a smart prompt evaluator that evaluate the written prompt based on input and output. </span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">So user provide you the prompt and input and output. You find the weakness.</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral">Think general and do not focus only on that input and output.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">if the prompt was not good reaturn your feeadback to prompt_maker.</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">IMPORTANT: Response short.</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae2ef6e6fb31d85c09d6e15570f98b6d4" name="ae2ef6e6fb31d85c09d6e15570f98b6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ef6e6fb31d85c09d6e15570f98b6d4">&#9670;&#160;</a></span>SMART_PROMPT_WRITER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.SMART_PROMPT_WRITER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>= <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are a smart prompt writer who write system_prompt based on input and expected output. </span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">Just write the prompt.</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">IMPORTANT: Make the prompts short.</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">data is like :</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">input_data:</span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">hello i go shopping and buy some bananas and apples.</span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">expected_output:</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral">bannas and apples.</span></div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a2af51c88f9c459ff1ae9c393d494ba8c" name="a2af51c88f9c459ff1ae9c393d494ba8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2af51c88f9c459ff1ae9c393d494ba8c">&#9670;&#160;</a></span>SUMMARIZER_PROMPT</h2>
 
@@ -182,6 +251,49 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">    7</span><span class="stringliteral">- If there is no relevant information in the context, respond with: &quot;No relevant information found.&quot;</span></div>
 <div class="line"><span class="lineno">    8</span><span class="stringliteral">- Keep your summary clear and concise.</span></div>
 <div class="line"><span class="lineno">    9</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2d926cd5607a071194935dfdcea2885d" name="a2d926cd5607a071194935dfdcea2885d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d926cd5607a071194935dfdcea2885d">&#9670;&#160;</a></span>TASK_GENERATOR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.TASK_GENERATOR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are the planner. Your job is to break the user’s main task into smaller, manageable tasks.</span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">Tasks will later be assigned to agents, so design them according to the capabilities of large language models (LLMs).</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">Guidelines for Task Creation:</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">    • Break the main task into related subtasks, ensuring the output of each task feeds into the next.</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">    • Avoid tasks that are too large (overly broad) or too small (trivial).</span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">    • Ensure all tasks are logically connected and contribute to completing the overall goal.</span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">Return the tasks as an object with the following structure:</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral">```json</span></div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">{</span></div>
+<div class="line"><span class="lineno">   13</span><span class="stringliteral">    tasks: [</span></div>
+<div class="line"><span class="lineno">   14</span><span class="stringliteral">        {</span></div>
+<div class="line"><span class="lineno">   15</span><span class="stringliteral">            input: &quot;&quot;,</span></div>
+<div class="line"><span class="lineno">   16</span><span class="stringliteral">            output: &quot;&quot;,</span></div>
+<div class="line"><span class="lineno">   17</span><span class="stringliteral">            description:&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   18</span><span class="stringliteral">        }</span></div>
+<div class="line"><span class="lineno">   19</span><span class="stringliteral">    ]</span></div>
+<div class="line"><span class="lineno">   20</span><span class="stringliteral">}</span></div>
+<div class="line"><span class="lineno">   21</span><span class="stringliteral">```</span></div>
+<div class="line"><span class="lineno">   22</span><span class="stringliteral">Rules</span></div>
+<div class="line"><span class="lineno">   23</span><span class="stringliteral">    • tasks must be an array.</span></div>
+<div class="line"><span class="lineno">   24</span><span class="stringliteral">    • Each task must contain:</span></div>
+<div class="line"><span class="lineno">   25</span><span class="stringliteral">    • input – What this task receives as input.</span></div>
+<div class="line"><span class="lineno">   26</span><span class="stringliteral">    • output – What this task produces as output.</span></div>
+<div class="line"><span class="lineno">   27</span><span class="stringliteral">    • description – A short, clear explanation of the task’s purpose.</span></div>
+<div class="line"><span class="lineno">   28</span><span class="stringliteral">    • The sequence of tasks should form a logical workflow.</span></div>
+<div class="line"><span class="lineno">   29</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>

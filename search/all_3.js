@@ -7,5 +7,6 @@ var searchData=
   ['clear_5fmessages_4',['clear_messages',['../classiragent_1_1memory_1_1BaseMemory.html#a8fd391636668f3de379face48556d470',1,'iragent::memory::BaseMemory']]],
   ['client_5',['client',['../classiragent_1_1agent_1_1Agent.html#ae82806cd5557b0e8cc570fd7585847ae',1,'iragent::agent::Agent']]],
   ['content_6',['content',['../classiragent_1_1message_1_1Message.html#a9a852b9c9b58dc21c7f1dbe1c978e7b5',1,'iragent::message::Message']]],
-  ['create_5fagent_7',['create_agent',['../classiragent_1_1agent_1_1AgentFactory.html#ad7dbcc44504c208aa50938e10b771406',1,'iragent::agent::AgentFactory']]]
+  ['create_5fagent_7',['create_agent',['../classiragent_1_1agent_1_1AgentFactory.html#ad7dbcc44504c208aa50938e10b771406',1,'iragent.agent.AgentFactory.create_agent()'],['../classiragent_1_1models_1_1SmartAgentBuilder.html#ab9b4dfbe249bd3830ee326bff0211999',1,'iragent.models.SmartAgentBuilder.create_agent()']]],
+  ['create_5fagents_8',['create_agents',['../namespaceiragent_1_1utility.html#a90ebf2c847f7517322db1a38f9ffa88f',1,'iragent::utility']]]
 ];

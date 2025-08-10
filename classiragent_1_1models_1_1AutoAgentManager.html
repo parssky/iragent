@@ -99,15 +99,17 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab3ddad07e479ade51eed3b9129a63a73" id="r_ab3ddad07e479ade51eed3b9129a63a73"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3ddad07e479ade51eed3b9129a63a73">__init__</a> (self, str init_message, List[<a class="el" href="classiragent_1_1agent_1_1Agent.html">Agent</a>] <a class="el" href="#ad8f4b110faeb806ed23564f1ad69dbcc">agents</a>, <a class="el" href="classiragent_1_1agent_1_1Agent.html">Agent</a> first_agent, int <a class="el" href="#a96f0a9c4849bb3b583ac055862eb2a31">max_round</a>=3, Callable <a class="el" href="#a233243c6a7ca32f02d7df3936c7eb4f7">termination_fn</a>=None, str <a class="el" href="#a865cdcfae18c81a19ae292d0f1702c1f">termination_word</a>=None)</td></tr>
+<tr class="memitem:ab3ddad07e479ade51eed3b9129a63a73" id="r_ab3ddad07e479ade51eed3b9129a63a73"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3ddad07e479ade51eed3b9129a63a73">__init__</a> (self, str init_message, List[<a class="el" href="classiragent_1_1agent_1_1Agent.html">Agent</a>] <a class="el" href="#ad8f4b110faeb806ed23564f1ad69dbcc">agents</a>, <a class="el" href="classiragent_1_1agent_1_1Agent.html">Agent</a> <a class="el" href="#afe8017a535c92ccab8c408b03ad01324">first_agent</a>, int <a class="el" href="#a96f0a9c4849bb3b583ac055862eb2a31">max_round</a>=3, Callable <a class="el" href="#a233243c6a7ca32f02d7df3936c7eb4f7">termination_fn</a>=None, str <a class="el" href="#a865cdcfae18c81a19ae292d0f1702c1f">termination_word</a>=None)</td></tr>
 <tr class="separator:ab3ddad07e479ade51eed3b9129a63a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a100f85564a47e90cb8f0414682baf65d" id="r_a100f85564a47e90cb8f0414682baf65d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiragent_1_1message_1_1Message.html">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a100f85564a47e90cb8f0414682baf65d">start</a> (self)</td></tr>
-<tr class="separator:a100f85564a47e90cb8f0414682baf65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab80a06544f22f742b2004d67b863af9d" id="r_ab80a06544f22f742b2004d67b863af9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiragent_1_1message_1_1Message.html">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab80a06544f22f742b2004d67b863af9d">start</a> (self, message=None)</td></tr>
+<tr class="separator:ab80a06544f22f742b2004d67b863af9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a2a3955de1ec2945a790552708b7f3c96" id="r_a2a3955de1ec2945a790552708b7f3c96"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a3955de1ec2945a790552708b7f3c96">auto_agent</a></td></tr>
 <tr class="separator:a2a3955de1ec2945a790552708b7f3c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe8017a535c92ccab8c408b03ad01324" id="r_afe8017a535c92ccab8c408b03ad01324"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afe8017a535c92ccab8c408b03ad01324">first_agent</a> = first_agent</td></tr>
+<tr class="separator:afe8017a535c92ccab8c408b03ad01324"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a233243c6a7ca32f02d7df3936c7eb4f7" id="r_a233243c6a7ca32f02d7df3936c7eb4f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a233243c6a7ca32f02d7df3936c7eb4f7">termination_fn</a> = termination_fn</td></tr>
 <tr class="separator:a233243c6a7ca32f02d7df3936c7eb4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96f0a9c4849bb3b583ac055862eb2a31" id="r_a96f0a9c4849bb3b583ac055862eb2a31"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96f0a9c4849bb3b583ac055862eb2a31">max_round</a> = max_round</td></tr>
@@ -119,7 +121,53 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a865cdcfae18c81a19ae292d0f1702c1f" id="r_a865cdcfae18c81a19ae292d0f1702c1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a865cdcfae18c81a19ae292d0f1702c1f">termination_word</a> = termination_word</td></tr>
 <tr class="separator:a865cdcfae18c81a19ae292d0f1702c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A multi-agent orchestration manager that routes messages between agents 
+in an automated workflow, with support for termination conditions and 
+dynamic agent selection.
+
+This class coordinates the execution of multiple agents in a round-based 
+loop. It starts with an initial message sent to the first agent, then uses 
+an internal `agent_manager` to determine the next agent to route the 
+response to. The process continues until:
+    - The termination function returns True, or
+    - The maximum number of rounds is reached.
+
+Attributes:
+    auto_agent (Agent): An internal controller agent responsible for 
+        deciding which agent should handle the next step.
+    first_agent (Agent): The first agent to receive the initial message.
+    termination_fn (Callable): Optional function to determine when the 
+        workflow should stop.
+    max_round (int): Maximum number of message-passing iterations allowed.
+    agents (dict[str, Agent]): Dictionary of available agents, keyed by 
+        agent name.
+    init_msg (Message): The initial message passed to the first agent.
+    termination_word (str): Optional keyword used by `termination_fn` to 
+        detect completion.
+
+Args:
+    init_message (str): The initial request or instruction from the user.
+    agents (List[Agent]): The list of agents participating in the workflow.
+    first_agent (Agent): The starting agent for message routing.
+    max_round (int, optional): Maximum number of routing rounds. Defaults to 3.
+    termination_fn (Callable, optional): A function to check if the process 
+        should terminate early. Defaults to None.
+    termination_word (str, optional): Keyword used in termination checks. 
+        Defaults to None.
+
+Methods:
+    start(message: str = None) -&gt; Message:
+        Executes the multi-agent workflow starting from either the 
+        `init_message` or a provided `message`.  
+        The process:
+            - Sends the message to the current agent.
+            - Evaluates termination conditions after each response.
+            - Uses `auto_agent` to determine the next agent in the sequence.
+            - Stops when the termination function returns True or the 
+              maximum round count is reached.
+        Returns the final `Message` from the last executed agent.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab3ddad07e479ade51eed3b9129a63a73" name="ab3ddad07e479ade51eed3b9129a63a73"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3ddad07e479ade51eed3b9129a63a73">&#9670;&#160;</a></span>__init__()</h2>
 
@@ -167,8 +215,8 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a100f85564a47e90cb8f0414682baf65d" name="a100f85564a47e90cb8f0414682baf65d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a100f85564a47e90cb8f0414682baf65d">&#9670;&#160;</a></span>start()</h2>
+<a id="ab80a06544f22f742b2004d67b863af9d" name="ab80a06544f22f742b2004d67b863af9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab80a06544f22f742b2004d67b863af9d">&#9670;&#160;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,8 +224,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"> <a class="el" href="classiragent_1_1message_1_1Message.html">Message</a> iragent.models.AutoAgentManager.start </td>
           <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>self</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>message</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -212,15 +264,29 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  Agent(</div>
 <div class="line">            <span class="stringliteral">&quot;agent_manager&quot;</span>,</div>
-<div class="line">            system_prompt=<span class="stringliteral">&quot;You are the Auto manager.&quot;</span>,</div>
+<div class="line">            system_prompt=<span class="stringliteral">&quot;You are the agent manager.&quot;</span>,</div>
 <div class="line">            model=first_agent.model,</div>
 <div class="line">            base_url=first_agent.base_url,</div>
 <div class="line">            api_key=first_agent.api_key,</div>
 <div class="line">            temprature=0.1,</div>
-<div class="line">            max_token=32,</div>
+<div class="line">            max_token=1024,</div>
 <div class="line">            memory=BaseMemory</div>
 <div class="line">        )</div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="afe8017a535c92ccab8c408b03ad01324" name="afe8017a535c92ccab8c408b03ad01324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe8017a535c92ccab8c408b03ad01324">&#9670;&#160;</a></span>first_agent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">iragent.models.AutoAgentManager.first_agent = first_agent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 <a id="a1a9edf044efa2eff8ab47a3ee7a54f99" name="a1a9edf044efa2eff8ab47a3ee7a54f99"></a>

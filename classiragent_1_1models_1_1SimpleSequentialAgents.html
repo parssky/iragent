@@ -111,7 +111,36 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7afd685da069bca9c00436952713dffa" id="r_a7afd685da069bca9c00436952713dffa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7afd685da069bca9c00436952713dffa">agent_manager</a></td></tr>
 <tr class="separator:a7afd685da069bca9c00436952713dffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A lightweight wrapper for running multiple agents in a fixed, 
+predefined sequence.
+
+This class sets up a chain of agents where each agent's output is 
+automatically routed to the next agent in the list, until all 
+agents have executed in order.
+
+Internally, it uses `AgentManager` to handle message passing 
+and execution, with the number of rounds set to the number of agents.
+
+Attributes:
+    history (list): Stores the conversation or execution history.
+    agent_manager (AgentManager): Manages the sequential execution 
+        of agents.
+
+Args:
+    agents (List[Agent]): The list of agents to execute in sequence.  
+        Each agent will have its `next_agent` attribute set to the 
+        name of the following agent in the list.
+    init_message (str): The initial message content passed to the 
+        first agent.
+
+Methods:
+    start() -&gt; List[Message]:
+        Runs the agents in sequential order, starting with the 
+        initial message and passing outputs along the chain.
+        Returns the list of `Message` objects representing the 
+        results of each agent's execution.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae21606270ad2d343e92a82c1b06944ab" name="ae21606270ad2d343e92a82c1b06944ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae21606270ad2d343e92a82c1b06944ab">&#9670;&#160;</a></span>__init__()</h2>
 
