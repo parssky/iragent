@@ -86,4 +86,5 @@ class TestAutoAgentManager(unittest.TestCase):
         )
 
         result = manager.start()
-        self.assertIn("[#finish#]", result.content)
+        self.assertTrue(result.content.strip())
+        self.assertIn("15", result.content)
