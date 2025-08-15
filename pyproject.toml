@@ -23,7 +23,12 @@ rag = [
     "numpy",
     "tiktoken"
 ]
-rag-gpu = ["faiss-gpu", "sentence-transformers"]
+rag-gpu = [
+    "faiss-gpu",
+    "sentence-transformers",
+    "numpy",
+    "tiktoken"
+    ]
 
 [build-system]
 requires = ["setuptools", "wheel"]
