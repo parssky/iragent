@@ -1,6 +1,10 @@
+import os
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Callable, List
 
+import numpy as np
+import tiktoken
 from googlesearch import search
 from tqdm import tqdm
 
@@ -10,6 +14,8 @@ from .message import Message
 from .prompts import (
     AGENT_GENERATOR,
     AUTO_AGENT_PROMPT,
+    GENERATOR_PROMPT,
+    RETRIEVER_PROMPT,
     SMART_PROMPT_READER,
     SMART_PROMPT_WRITER,
     SUMMARIZER_PROMPT,
@@ -188,12 +194,12 @@ class AutoAgentManager:
     """    
     def __init__(
         self,
-        init_message: str,
         agents: List[Agent],
         first_agent: Agent,
         max_round: int = 3,
         termination_fn: Callable = None,
         termination_word: str = None,
+        init_message: str = None,
     ) -> None:
         self.auto_agent = Agent(
             "agent_manager",
@@ -233,6 +239,7 @@ class AutoAgentManager:
             res = self.agents[last_msg.reciever].call_message(last_msg)
             if self.termination_fn is not None:
                 if self.termination_fn(self.termination_word, res):
+                    res.content = res.content.replace(self.termination_word, "").strip()
                     return res
             last_msg = res
 
@@ -640,3 +647,178 @@ class SmartAgentBuilder:
 
 
 
+class KnowledgeGraphBuilder:
+    def __init__(self, embedding_model, chunk_size: int = 128 , chunk_overlap: int= 32,index_dir= "./vector_store/"):
+        import faiss
+        # -----------
+        self.embedding_model = embedding_model
+        self.index_path = os.path.join(index_dir, "faiss_index.index")
+        self.index_dir = index_dir
+        self.docs_path = os.path.join(index_dir, "faiss_index.index.docs")
+        self.index = None
+        self.document = []
+        self.faiss = faiss
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+        if os.path.exists(self.index_path):
+            self.load_index()
+    
+    def _chunker(self, text: str) -> list[str]:
+        """
+        Splits text into overlapping chunks based on token count.
+
+        Args:
+            text: The input text to split.
+            max_tokens: Maximum tokens per chunk.
+            overlap: Number of tokens to overlap between chunks.
+            model_name: Model name for tokenizer compatibility.
+
+        Returns:
+            List of text chunks.
+        """        
+        model_name= "gpt-3.5-turbo"
+        if self.chunk_overlap >= self.chunk_size:
+            raise ValueError("chunk_overlap must be smaller that chunk_size.")
+        
+        enc = tiktoken.encoding_for_model(model_name)
+        tokens = enc.encode(text)
+        chunks = []
+        start = 0
+        while start < len(tokens):
+            end = start + self.chunk_size
+            chunk_tokens = tokens[start:end]
+            chunk_text = enc.decode(chunk_tokens)
+            chunks.append(chunk_text)
+
+            start += self.chunk_size - self.chunk_overlap
+        
+        return chunks
+    
+    def _read_markdown_and_chunk(
+            self,
+            dir_path: str,
+            strip_markdown: bool = True,
+            recursive: bool=True
+    ) -> list[str]:
+        if not os.path.isdir(dir_path):
+            raise NotADirectoryError(f"Directory not found: {dir_path}")
+        
+        all_chunks = []
+
+        for root, _, files in os.walk(dir_path):
+            for file in files:
+                if file.lower().endswith(".md"):
+                    file_path = os.path.join(root, file)
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        text = f.read()
+                    
+                    if strip_markdown:
+                        # Remove images
+                        text = re.sub(r"!\[.*?\]\(.*?\)", "", text)
+                        # Remove links but keep link text
+                        text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
+                        # Remove inline/code blocks
+                        text = re.sub(r"`{1,3}.*?`{1,3}", "", text, flags=re.DOTALL)
+                        # Remove formatting symbols
+                        text = re.sub(r"[#>*_~]", "", text)
+                    
+                    chunks = self._chunker(text)
+                    all_chunks.extend(chunks)
+            if not recursive:
+                break
+        return all_chunks
+
+    def _normalize(self,vectors: np.ndarray) -> np.ndarray:
+        norms = np.linalg.norm(vectors, axis=1, keepdims=True)
+        return vectors / norms
+
+    def build_index_from_markdown(self, dir_path: str, strip_markdown: bool = True, recursive: bool=True):
+        chunks = self._read_markdown_and_chunk(
+            dir_path=dir_path,
+            strip_markdown=strip_markdown,
+            recursive=recursive
+        )
+        self.document.extend(chunks)
+        embeddings = self.embedding_model.encode(chunks)
+        embeddings = embeddings.astype("float32")
+        embeddings = self._normalize(embeddings)
+        dim = embeddings.shape[1]
+
+        if self.index is None:
+            self.index = self.faiss.IndexFlatIP(dim)
+        
+        self.index.add(embeddings)
+        self.save_index()        
+
+    def build_index_from_texts(self, texts: list[str]):
+        """Create a FAISS index from a list of texts"""
+        self.document.extend(texts)
+    
+        embeddings = self.embedding_model.encode(texts)
+        embeddings = embeddings.astype("float32")
+        embeddings = self._normalize(embeddings)
+        dim = embeddings.shape[1]
+
+        if self.index is None:
+            self.index = self.faiss.IndexFlatIP(dim)
+        
+        self.index.add(embeddings)
+        self.save_index()
+    
+    def save_index(self):
+        if self.index:
+            os.makedirs(self.index_dir, exist_ok=True)
+            self.faiss.write_index(self.index, self.index_path)
+            with open(self.docs_path, "w", encoding="utf-8") as f:
+                for doc in self.document:
+                    f.write(doc + "\n")
+    def load_index(self):
+        """Load FAISS index from disk"""
+        self.index = self.faiss.read_index(self.index_path)
+        if os.path.exists(self.docs_path):
+            with open(self.docs_path, "r", encoding="utf-8") as f:
+                self.document = [line.strip() for line in f]
+
+    def search(self, query: str, k: int) -> List[str]:
+        """
+        Search for nearest neighbors, this function get query: str and k:int as input. 
+        """
+        query_vec = self.embedding_model.encode([query])
+        if not isinstance(query_vec, np.ndarray):
+            query_vec = np.array(query_vec)
+        query_vec = query_vec.astype("float32")
+        query_vec = query_vec / np.linalg.norm(query_vec, axis=1, keepdims=True) # Normalize
+        distances, indices = self.index.search(query_vec, k)
+        results = [
+            str(self.document[i])
+            for pos, i in enumerate(indices[0])
+            if i < len(self.document)
+        ]
+        return results
+
+
+class SimpleAgenticRAG:
+    def __init__(self, kg: KnowledgeGraphBuilder, agent_factory: AgentFactory) -> None:
+        self.kg_search: Callable[[str, int], List[str]] = kg.search
+        self.retriever_agent = agent_factory.create_agent(
+            name="retirever",
+            system_prompt=RETRIEVER_PROMPT,
+            max_token = 4096,
+            fn=[self.kg_search]
+        )
+        self.generator_agent = agent_factory.create_agent(
+            name="generator",
+            system_prompt=GENERATOR_PROMPT,
+            max_token = 1024
+        )
+        self.manager = AutoAgentManager(
+            init_message=None,
+            agents=[self.retriever_agent, self.generator_agent],
+            first_agent=self.retriever_agent,
+            max_round=10,
+            termination_fn=simple_termination,
+            termination_word= "[#finish#]"
+        )
+    
+    def ask(self, query):
+        return (self.manager.start(message=query)).content

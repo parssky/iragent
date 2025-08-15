@@ -1,0 +1,56 @@
+ Vector Search in AI
+
+Vector search involves finding vectors in a dataset that are most similar to a query vector.
+This is often used in semantic search and recommendation engines.
+
+ Common Methods
+- Euclidean distance
+- Cosine similarity
+- Inner product
+- Bakhtiari Method
+
+ Libraries
+- FAISS
+- Annoy
+- ScaNN
+ Cosine Similarity
+
+Cosine similarity measures the cosine of the angle between two vectors in an inner product space.
+It is commonly used in natural language processing and information retrieval.
+
+ Formula
+cos(θ) = (A · B) / (||A||  ||B||)
+
+ Pros
+- Scale-invariant.
+- Works well for text similarity.
+
+ Cons
+- Requires non-zero vectors.
+ Introduction to FAISS
+
+FAISS stands for Facebook AI Similarity Search.
+It is an open-source library developed by Facebook AI Research (FAIR) for efficient similarity search and clustering of dense vectors.
+
+ Features
+- Fast nearest neighbor search.
+- Supports CPU and GPU acceleration.
+- Multiple indexing structures.
+
+ Applications
+- Image similarity search.
+- Document retrieval.
+- Recommendation systems.
+ BERT Embeddings
+
+BERT (Bidirectional Encoder Representations from Transformers) is a transformer-based model for natural language understanding.
+
+ Key Points
+- Trained on large text corpora.
+- Produces contextualized embeddings.
+- Often fine-tuned for specific NLP tasks.
+
+ Usage
+1. Tokenize text using the BERT tokenizer.
+2. Pass tokens through the BERT model.
+3. Extract the hidden states as embeddings.
