@@ -1,6 +1,6 @@
 [project]
 name = "iragent"
-version = "0.1.5"
+version = "0.1.6"
 description = "A simple multi-agent framework"
 authors = [{ name = "Parsa Bakhtiari", email = "spacenavard1@gmail.com" }]
 readme = "README.md"
@@ -15,6 +15,20 @@ dependencies = [
     "nltk",
     "pytest"
 ]
+# For RAG usage
+[project.optional-dependencies]
+rag = [
+    "faiss-cpu",
+    "sentence-transformers",
+    "numpy",
+    "tiktoken"
+]
+rag-gpu = [
+    "faiss-gpu",
+    "sentence-transformers",
+    "numpy",
+    "tiktoken"
+    ]
 
 [build-system]
 requires = ["setuptools", "wheel"]

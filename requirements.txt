@@ -4,3 +4,7 @@ googlesearch-python
 beautifulsoup4
 lxml
 nltk
+faiss-cpu
+sentence-transformers
+numpy
+tiktoken

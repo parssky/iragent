@@ -32,10 +32,46 @@
 | **SummarizerMemory with summarizer agent**    | `SummarizerMemory` extends `BaseMemory` by integrating a summarizing `Agent` that automatically condenses long histories when memory limits are exceeded. This enables agents to maintain compact, relevant context over time, ensuring efficiency without losing key information.                      |
 | **SmartAgentBuilder for automated agent creation** | `SmartAgentBuilder` automates breaking down a high-level task into structured subtasks, then creates specialized agents for each subtask using a sequential pipeline. It ensures that each agent is precisely configured with a strict role, and outputs an `AutoAgentManager` to run them in coordination. |
 
-
-
-
 ---
+
+## SimpleAgenticRAG + KnowledgeGraphBuilder
+
+**SimpleAgenticRAG** combines a FAISS-powered retriever (`KnowledgeGraphBuilder`) with agent-based orchestration for question answering.  
+It follows a **Retriever → Generator** flow: search relevant chunks, then generate an answer with your LLM.
+
+### Example (Local LLM)
+```python
+from sentence_transformers import SentenceTransformer
+from iragent.models import KnowledgeGraphBuilder
+from iragent.agent import AgentFactory
+from iragent.models import SimpleAgenticRAG
+
+base_url= "http://127.0.0.1:1234/v1" # use your own base_url from api provider or local provider like ollama.
+api_key = "no-key" # use your own api_key.
+provider = "ollama" # openai for openai like provider (vLLM or openrouter) and ollama for local use.
+model = "qwen3-4b-instruct-2507"
+
+emb_model = SentenceTransformer("all-MiniLM-L6-v2")
+kg = KnowledgeGraphBuilder(embedding_model=emb_model, index_dir="./text-store/")
+texts = ["FAISS (Facebook AI Similarity Search) is a library for efficient similarity search and clustering of dense vectors.",
+        "It is written in C++ with bindings for Python, and is widely used for large-scale nearest-neighbor search.", 
+        "FAISS supports both exact search and approximate search algorithms, making it flexible for different speed/accuracy needs.", 
+        "The library was developed by Facebook’s AI Research (FAIR) team."]
+kg.build_index_from_texts(texts)
+agent_factory = AgentFactory(
+    base_url=base_url,
+    api_key=api_key,
+    model=model,
+    provider=provider
+)
+
+rag = SimpleAgenticRAG(
+    kg = kg,
+    agent_factory= agent_factory
+)
+answer = rag.ask("Who developed FAISS?")
+```
+See examples/SimpleAgenticRAG for more usage.
 
 ## 🚀 Installation
 

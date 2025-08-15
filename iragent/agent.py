@@ -274,12 +274,18 @@ class Agent:
         )
 
     def function_to_schema(self, fn: Callable) -> Dict[str, Any]:
-        sig = inspect.signature(fn)
-        hints = get_type_hints(fn)
-        doc_info = self.parse_docstring(fn)
+        if hasattr(fn, "__self__") and hasattr(fn, "__func__"):
+            real_fn = fn.__func__
+        else:
+            real_fn = fn
+        sig = inspect.signature(real_fn)
+        hints = get_type_hints(real_fn)
+        doc_info = self.parse_docstring(real_fn)
         parameters = {}
 
         for name, param in sig.parameters.items():
+            if name == "self":
+                continue
             hint = hints.get(name, str)
             desc = doc_info["param_docs"].get(name, "No description")
             parameters[name] = {
@@ -288,8 +294,8 @@ class Agent:
             }
 
         return {
-            "name": fn.__name__,
-            "description": inspect.getdoc(fn) or "No description provided",
+            "name": real_fn.__name__,
+            "description": inspect.getdoc(real_fn) or "No description provided",
             "parameters": {
                 "type": "object",
                 "properties": parameters,
