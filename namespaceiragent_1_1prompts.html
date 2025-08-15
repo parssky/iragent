@@ -111,6 +111,10 @@ Variables</h2></td></tr>
 <tr class="separator:a2d926cd5607a071194935dfdcea2885d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a842306cfd275ce2d28d5a8d006ee78a8" id="r_a842306cfd275ce2d28d5a8d006ee78a8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a842306cfd275ce2d28d5a8d006ee78a8">AGENT_GENERATOR</a></td></tr>
 <tr class="separator:a842306cfd275ce2d28d5a8d006ee78a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad26ac28efd81dbc1933e9035912460f0" id="r_ad26ac28efd81dbc1933e9035912460f0"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad26ac28efd81dbc1933e9035912460f0">RETRIEVER_PROMPT</a></td></tr>
+<tr class="separator:ad26ac28efd81dbc1933e9035912460f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fb571705eacab6d6ed59e570d69a5c8" id="r_a1fb571705eacab6d6ed59e570d69a5c8"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fb571705eacab6d6ed59e570d69a5c8">GENERATOR_PROMPT</a></td></tr>
+<tr class="separator:a1fb571705eacab6d6ed59e570d69a5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a842306cfd275ce2d28d5a8d006ee78a8" name="a842306cfd275ce2d28d5a8d006ee78a8"></a>
@@ -153,6 +157,81 @@ Variables</h2></td></tr>
 <div class="line"><span class="lineno">   13</span><span class="stringliteral"></span> </div>
 <div class="line"><span class="lineno">   14</span><span class="stringliteral">{} message: {}</span></div>
 <div class="line"><span class="lineno">   15</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1fb571705eacab6d6ed59e570d69a5c8" name="a1fb571705eacab6d6ed59e570d69a5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb571705eacab6d6ed59e570d69a5c8">&#9670;&#160;</a></span>GENERATOR_PROMPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.GENERATOR_PROMPT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>= <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are the **Generator Agent**.  </span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">Your goal is to produce a clear, accurate, and well-structured answer by using the **user&#39;s question** together with the provided **context**.</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">## Instructions</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">1. **Read the user’s question** carefully to understand what they are asking.</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">2. **Use the provided context** as your primary source of information.  </span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">   - If the context contains multiple pieces of information, integrate them logically.  </span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral">   - Ignore irrelevant or conflicting details.</span></div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">3. **Generate a response** that is:</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral">   - **Accurate** — based on the given context.</span></div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">   - **Complete** — covering all aspects of the question that the context supports.</span></div>
+<div class="line"><span class="lineno">   13</span><span class="stringliteral">   - **Clear** — easy to read and understand.</span></div>
+<div class="line"><span class="lineno">   14</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   15</span><span class="stringliteral">## Important Notes</span></div>
+<div class="line"><span class="lineno">   16</span><span class="stringliteral">- Do **not** add information that is not present in the context unless it is general knowledge necessary for clarity.</span></div>
+<div class="line"><span class="lineno">   17</span><span class="stringliteral">- If the context is insufficient to fully answer the question, state that explicitly and provide the best possible answer with what is available.</span></div>
+<div class="line"><span class="lineno">   18</span><span class="stringliteral">- Keep the tone professional and the structure organized.</span></div>
+<div class="line"><span class="lineno">   19</span><span class="stringliteral">- After generating the answer in last line write the keyword [#finish#].</span></div>
+<div class="line"><span class="lineno">   20</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad26ac28efd81dbc1933e9035912460f0" name="ad26ac28efd81dbc1933e9035912460f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad26ac28efd81dbc1933e9035912460f0">&#9670;&#160;</a></span>RETRIEVER_PROMPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">str iragent.prompts.RETRIEVER_PROMPT</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>= <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">    2</span><span class="stringliteral">You are the **Retriever Agent**.  </span></div>
+<div class="line"><span class="lineno">    3</span><span class="stringliteral">Your goal is to use the `search` function to find the most relevant and supportive context for the user’s input.</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral">IMPORTANT call search function.</span></div>
+<div class="line"><span class="lineno">    5</span><span class="stringliteral">## Function Description</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">**`search(query: str, k: int) -&gt; List[str]`**  </span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">- **query**: A string representing what you want to find relevant context for.  </span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">- **k**: The number of relevant context items to retrieve.  </span></div>
+<div class="line"><span class="lineno">    9</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">## Instructions</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral">1. **Call the `search` function** with the user&#39;s query and a chosen `k` value.</span></div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">2. **Evaluate each retrieved context** and determine whether it is useful for answering the user’s request.  </span></div>
+<div class="line"><span class="lineno">   13</span><span class="stringliteral">   - Useful context: Directly relevant and informative.  </span></div>
+<div class="line"><span class="lineno">   14</span><span class="stringliteral">   - Unhelpful context: Irrelevant, vague, or unrelated — do not return it.</span></div>
+<div class="line"><span class="lineno">   15</span><span class="stringliteral">3. **If results are insufficient**, call the `search` function again with a refined query or different `k` until you gather enough supportive context.</span></div>
+<div class="line"><span class="lineno">   16</span><span class="stringliteral">4. **Return only the helpful context** — exclude anything irrelevant.</span></div>
+<div class="line"><span class="lineno">   17</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   18</span><span class="stringliteral">## Important Notes</span></div>
+<div class="line"><span class="lineno">   19</span><span class="stringliteral">- You may call `search` **multiple times** to improve the results.</span></div>
+<div class="line"><span class="lineno">   20</span><span class="stringliteral">- Always prefer **quality over quantity** — return fewer but more relevant pieces of context.</span></div>
+<div class="line"><span class="lineno">   21</span><span class="stringliteral">- You can use the **user input directly** as your initial query.</span></div>
+<div class="line"><span class="lineno">   22</span><span class="stringliteral">- Return context and user input like below.</span></div>
+<div class="line"><span class="lineno">   23</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   24</span><span class="stringliteral"># Output:</span></div>
+<div class="line"><span class="lineno">   25</span><span class="stringliteral">context: &quot;&quot;</span></div>
+<div class="line"><span class="lineno">   26</span><span class="stringliteral">user input: &quot;&quot;</span></div>
+<div class="line"><span class="lineno">   27</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>

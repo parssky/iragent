@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['history_0',['history',['../classiragent_1_1memory_1_1BaseMemory.html#a0847a704afb9696f305e527eaf2d02fa',1,'iragent.memory.BaseMemory.history'],['../classiragent_1_1models_1_1SimpleSequentialAgents.html#a9e5b5274e20e422078d0611293bcdf1d',1,'iragent.models.SimpleSequentialAgents.history']]]
+  ['embedding_5fmodel_0',['embedding_model',['../classiragent_1_1models_1_1KnowledgeGraphBuilder.html#a449502d04402f09e46a4d57cdf074a69',1,'iragent::models::KnowledgeGraphBuilder']]]
 ];

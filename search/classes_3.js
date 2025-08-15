@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['message_0',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]]
+  ['knowledgegraphbuilder_0',['KnowledgeGraphBuilder',['../classiragent_1_1models_1_1KnowledgeGraphBuilder.html',1,'iragent::models']]]
 ];

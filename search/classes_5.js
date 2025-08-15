@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['testautoagentmanager_0',['TestAutoAgentManager',['../classtests_1_1test__auto__agent__manager_1_1TestAutoAgentManager.html',1,'tests::test_auto_agent_manager']]],
-  ['testsimplesequentialagents_1',['TestSimpleSequentialAgents',['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html',1,'tests::test_simple_sequence']]]
+  ['simpleagenticrag_0',['SimpleAgenticRAG',['../classiragent_1_1models_1_1SimpleAgenticRAG.html',1,'iragent::models']]],
+  ['simplesequentialagents_1',['SimpleSequentialAgents',['../classiragent_1_1models_1_1SimpleSequentialAgents.html',1,'iragent::models']]],
+  ['smartagentbuilder_2',['SmartAgentBuilder',['../classiragent_1_1models_1_1SmartAgentBuilder.html',1,'iragent::models']]],
+  ['smartprompt_3',['SmartPrompt',['../classiragent_1_1models_1_1SmartPrompt.html',1,'iragent::models']]],
+  ['summarizermemory_4',['SummarizerMemory',['../classiragent_1_1memory_1_1SummarizerMemory.html',1,'iragent::memory']]]
 ];

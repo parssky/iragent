@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['writer_0',['writer',['../classiragent_1_1models_1_1SmartPrompt.html#a6a8a2891e6f41f0fb692c9fc6db8b5e5',1,'iragent::models::SmartPrompt']]]
+  ['provider_0',['provider',['../classiragent_1_1agent_1_1Agent.html#aa87ef2efdc790fac1d65ecded02a3c36',1,'iragent.agent.Agent.provider'],['../classiragent_1_1agent_1_1AgentFactory.html#a3e9af6b6d56774ea837a562cc97e4168',1,'iragent.agent.AgentFactory.provider']]]
 ];

@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['provider_0',['provider',['../classiragent_1_1agent_1_1Agent.html#aa87ef2efdc790fac1d65ecded02a3c36',1,'iragent.agent.Agent.provider'],['../classiragent_1_1agent_1_1AgentFactory.html#a3e9af6b6d56774ea837a562cc97e4168',1,'iragent.agent.AgentFactory.provider']]]
+  ['index_0',['index',['../classiragent_1_1models_1_1KnowledgeGraphBuilder.html#a94a962daa5b55a1a948a7092bb0138d8',1,'iragent::models::KnowledgeGraphBuilder']]],
+  ['index_5fdir_1',['index_dir',['../classiragent_1_1models_1_1KnowledgeGraphBuilder.html#a6d32ea597273b741cb26291466142cb2',1,'iragent::models::KnowledgeGraphBuilder']]],
+  ['index_5fpath_2',['index_path',['../classiragent_1_1models_1_1KnowledgeGraphBuilder.html#a27a75696195ea32e7407967ab1c9ddf0',1,'iragent::models::KnowledgeGraphBuilder']]],
+  ['init_5fmsg_3',['init_msg',['../classiragent_1_1models_1_1AgentManager.html#a34744f6c5bc8024f0c5b0ea9020714a9',1,'iragent.models.AgentManager.init_msg'],['../classiragent_1_1models_1_1AutoAgentManager.html#a1a9edf044efa2eff8ab47a3ee7a54f99',1,'iragent.models.AutoAgentManager.init_msg']]],
+  ['intent_4',['intent',['../classiragent_1_1message_1_1Message.html#a402289336bc44a1ce4c00ef5a4a3f58e',1,'iragent::message::Message']]]
 ];

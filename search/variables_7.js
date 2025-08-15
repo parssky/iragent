@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../classiragent_1_1agent_1_1Agent.html#abf51de05a80dfb65a977c768acd02429',1,'iragent.agent.Agent.name'],['../classiragent_1_1agent_1_1UserAgent.html#a970da2fd7cadcd7a8bcc8b06b9c66e7f',1,'iragent.agent.UserAgent.name']]],
-  ['next_5fagent_1',['next_agent',['../classiragent_1_1agent_1_1Agent.html#a53611e0507bcba238ea117d8d542de91',1,'iragent::agent::Agent']]]
+  ['history_0',['history',['../classiragent_1_1memory_1_1BaseMemory.html#a0847a704afb9696f305e527eaf2d02fa',1,'iragent.memory.BaseMemory.history'],['../classiragent_1_1models_1_1SimpleSequentialAgents.html#a9e5b5274e20e422078d0611293bcdf1d',1,'iragent.models.SimpleSequentialAgents.history']]]
 ];

@@ -1,19 +1,16 @@
 var searchData=
 [
-  ['sender_0',['sender',['../classiragent_1_1message_1_1Message.html#a30ab066246e6e304b095b44fb30afed2',1,'iragent::message::Message']]],
-  ['sequencial_5fagent_1',['sequencial_agent',['../classiragent_1_1models_1_1SmartAgentBuilder.html#aae978e3864357d66d7b4a5554fc6aedb',1,'iragent::models::SmartAgentBuilder']]],
-  ['setup_2',['setUp',['../classtests_1_1test__auto__agent__manager_1_1TestAutoAgentManager.html#ad213973ec8106a5fd25b2f5670702940',1,'tests.test_auto_agent_manager.TestAutoAgentManager.setUp()'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a9e17e545158c6ec7e2065058220e6a2b',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.setUp()']]],
-  ['simple_5ftermination_3',['simple_termination',['../namespaceiragent_1_1tools.html#a25a8a80228695da2c3ddfe64cfa81df8',1,'iragent::tools']]],
-  ['simplesequentialagents_4',['SimpleSequentialAgents',['../classiragent_1_1models_1_1SimpleSequentialAgents.html',1,'iragent::models']]],
-  ['smart_5fmemory_5',['SMART_MEMORY',['../namespaceiragent_1_1prompts.html#ab4d21f28e7af11bf8f9a256ecb205e7c',1,'iragent::prompts']]],
-  ['smart_5fprompt_5freader_6',['SMART_PROMPT_READER',['../namespaceiragent_1_1prompts.html#af598bfce029a31e3bcb32f8d8022fc59',1,'iragent::prompts']]],
-  ['smart_5fprompt_5fwriter_7',['SMART_PROMPT_WRITER',['../namespaceiragent_1_1prompts.html#ae2ef6e6fb31d85c09d6e15570f98b6d4',1,'iragent::prompts']]],
-  ['smartagentbuilder_8',['SmartAgentBuilder',['../classiragent_1_1models_1_1SmartAgentBuilder.html',1,'iragent::models']]],
-  ['smartprompt_9',['SmartPrompt',['../classiragent_1_1models_1_1SmartPrompt.html',1,'iragent::models']]],
-  ['start_10',['start',['../classiragent_1_1models_1_1SimpleSequentialAgents.html#a8fa92def3352363a6819b708a8856a9e',1,'iragent.models.SimpleSequentialAgents.start()'],['../classiragent_1_1models_1_1AgentManager.html#a4b78098c7026a201d226692a1b0258c7',1,'iragent.models.AgentManager.start()'],['../classiragent_1_1models_1_1AutoAgentManager.html#ab80a06544f22f742b2004d67b863af9d',1,'iragent.models.AutoAgentManager.start()'],['../classiragent_1_1models_1_1InternetAgent.html#ae14e8878d1f3eafe7f7aa9fb2ce921c4',1,'iragent.models.InternetAgent.start()']]],
-  ['summarizer_11',['summarizer',['../classiragent_1_1memory_1_1SummarizerMemory.html#ac9873d389bdad12686555d6a2ddd4563',1,'iragent::memory::SummarizerMemory']]],
-  ['summarizer_5fprompt_12',['SUMMARIZER_PROMPT',['../namespaceiragent_1_1prompts.html#a2af51c88f9c459ff1ae9c393d494ba8c',1,'iragent::prompts']]],
-  ['summarizermemory_13',['SummarizerMemory',['../classiragent_1_1memory_1_1SummarizerMemory.html',1,'iragent::memory']]],
-  ['summerize_5fagent_14',['summerize_agent',['../classiragent_1_1models_1_1InternetAgent.html#a6f77c4253e418133589061ed89629ad7',1,'iragent::models::InternetAgent']]],
-  ['system_5fprompt_15',['system_prompt',['../classiragent_1_1agent_1_1Agent.html#a693c5467c701b66355614328ea1a4d75',1,'iragent::agent::Agent']]]
+  ['manager_0',['manager',['../classiragent_1_1models_1_1SmartPrompt.html#acf6870d0eec712818e48f085d24f9b92',1,'iragent.models.SmartPrompt.manager'],['../classiragent_1_1models_1_1SimpleAgenticRAG.html#a2a4671ef8b4467f620797ff5979306ca',1,'iragent.models.SimpleAgenticRAG.manager']]],
+  ['max_5fround_1',['max_round',['../classiragent_1_1models_1_1AgentManager.html#a9a02d679c6d4f7500b7608062df9800f',1,'iragent.models.AgentManager.max_round'],['../classiragent_1_1models_1_1AutoAgentManager.html#a96f0a9c4849bb3b583ac055862eb2a31',1,'iragent.models.AutoAgentManager.max_round']]],
+  ['max_5ftoken_2',['max_token',['../classiragent_1_1agent_1_1Agent.html#af1ab06bab7bab10b3b92bf588d68c86a',1,'iragent::agent::Agent']]],
+  ['memory_3',['memory',['../classiragent_1_1agent_1_1Agent.html#aff2753589412be32a99374b94ea48dec',1,'iragent::agent::Agent']]],
+  ['memory_2epy_4',['memory.py',['../memory_8py.html',1,'']]],
+  ['memory_5flimit_5',['memory_limit',['../classiragent_1_1memory_1_1SummarizerMemory.html#a32776dc817c8e4a2080a8ec32fed9558',1,'iragent::memory::SummarizerMemory']]],
+  ['message_6',['Message',['../classiragent_1_1message_1_1Message.html',1,'iragent::message']]],
+  ['message_2epy_7',['message.py',['../message_8py.html',1,'']]],
+  ['messages_8',['messages',['../classiragent_1_1memory_1_1BaseMemory.html#adc998e4c8d648a4f2355a1eb9e9b5e0c',1,'iragent::memory::BaseMemory']]],
+  ['metadata_9',['metadata',['../classiragent_1_1message_1_1Message.html#a4e88bf06d7fe1a239a5f0c4d107ad738',1,'iragent::message::Message']]],
+  ['mock_5fcreate_5fagent_10',['mock_create_agent',['../namespacetests_1_1test__structured__output.html#ab82ada2efc284eea2038919145bbc657',1,'tests::test_structured_output']]],
+  ['model_11',['model',['../classiragent_1_1agent_1_1Agent.html#a8678b9e776c81a98f0e5c1a0846faa6f',1,'iragent.agent.Agent.model'],['../classiragent_1_1agent_1_1AgentFactory.html#aa7ee5e7c5c059ab3e789635cc033b41c',1,'iragent.agent.AgentFactory.model'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a6429f600373df055178e1e4ae4f4bab1',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.model']]],
+  ['models_2epy_12',['models.py',['../models_8py.html',1,'']]]
 ];

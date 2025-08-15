@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['sender_0',['sender',['../classiragent_1_1message_1_1Message.html#a30ab066246e6e304b095b44fb30afed2',1,'iragent::message::Message']]],
-  ['sequencial_5fagent_1',['sequencial_agent',['../classiragent_1_1models_1_1SmartAgentBuilder.html#aae978e3864357d66d7b4a5554fc6aedb',1,'iragent::models::SmartAgentBuilder']]],
-  ['smart_5fmemory_2',['SMART_MEMORY',['../namespaceiragent_1_1prompts.html#ab4d21f28e7af11bf8f9a256ecb205e7c',1,'iragent::prompts']]],
-  ['smart_5fprompt_5freader_3',['SMART_PROMPT_READER',['../namespaceiragent_1_1prompts.html#af598bfce029a31e3bcb32f8d8022fc59',1,'iragent::prompts']]],
-  ['smart_5fprompt_5fwriter_4',['SMART_PROMPT_WRITER',['../namespaceiragent_1_1prompts.html#ae2ef6e6fb31d85c09d6e15570f98b6d4',1,'iragent::prompts']]],
-  ['summarizer_5',['summarizer',['../classiragent_1_1memory_1_1SummarizerMemory.html#ac9873d389bdad12686555d6a2ddd4563',1,'iragent::memory::SummarizerMemory']]],
-  ['summarizer_5fprompt_6',['SUMMARIZER_PROMPT',['../namespaceiragent_1_1prompts.html#a2af51c88f9c459ff1ae9c393d494ba8c',1,'iragent::prompts']]],
-  ['summerize_5fagent_7',['summerize_agent',['../classiragent_1_1models_1_1InternetAgent.html#a6f77c4253e418133589061ed89629ad7',1,'iragent::models::InternetAgent']]],
-  ['system_5fprompt_8',['system_prompt',['../classiragent_1_1agent_1_1Agent.html#a693c5467c701b66355614328ea1a4d75',1,'iragent::agent::Agent']]]
+  ['manager_0',['manager',['../classiragent_1_1models_1_1SmartPrompt.html#acf6870d0eec712818e48f085d24f9b92',1,'iragent.models.SmartPrompt.manager'],['../classiragent_1_1models_1_1SimpleAgenticRAG.html#a2a4671ef8b4467f620797ff5979306ca',1,'iragent.models.SimpleAgenticRAG.manager']]],
+  ['max_5fround_1',['max_round',['../classiragent_1_1models_1_1AgentManager.html#a9a02d679c6d4f7500b7608062df9800f',1,'iragent.models.AgentManager.max_round'],['../classiragent_1_1models_1_1AutoAgentManager.html#a96f0a9c4849bb3b583ac055862eb2a31',1,'iragent.models.AutoAgentManager.max_round']]],
+  ['max_5ftoken_2',['max_token',['../classiragent_1_1agent_1_1Agent.html#af1ab06bab7bab10b3b92bf588d68c86a',1,'iragent::agent::Agent']]],
+  ['memory_3',['memory',['../classiragent_1_1agent_1_1Agent.html#aff2753589412be32a99374b94ea48dec',1,'iragent::agent::Agent']]],
+  ['memory_5flimit_4',['memory_limit',['../classiragent_1_1memory_1_1SummarizerMemory.html#a32776dc817c8e4a2080a8ec32fed9558',1,'iragent::memory::SummarizerMemory']]],
+  ['messages_5',['messages',['../classiragent_1_1memory_1_1BaseMemory.html#adc998e4c8d648a4f2355a1eb9e9b5e0c',1,'iragent::memory::BaseMemory']]],
+  ['metadata_6',['metadata',['../classiragent_1_1message_1_1Message.html#a4e88bf06d7fe1a239a5f0c4d107ad738',1,'iragent::message::Message']]],
+  ['model_7',['model',['../classiragent_1_1agent_1_1Agent.html#a8678b9e776c81a98f0e5c1a0846faa6f',1,'iragent.agent.Agent.model'],['../classiragent_1_1agent_1_1AgentFactory.html#aa7ee5e7c5c059ab3e789635cc033b41c',1,'iragent.agent.AgentFactory.model'],['../classtests_1_1test__simple__sequence_1_1TestSimpleSequentialAgents.html#a6429f600373df055178e1e4ae4f4bab1',1,'tests.test_simple_sequence.TestSimpleSequentialAgents.model']]]
 ];
