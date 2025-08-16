@@ -40,6 +40,13 @@
 It follows a **Retriever → Generator** flow: search relevant chunks, then generate an answer with your LLM.
 
 ### Example (Local LLM)
+
+Installation:
+```bash
+pip install iragent[rag]
+```
+
+
 ```python
 from sentence_transformers import SentenceTransformer
 from iragent.models import KnowledgeGraphBuilder
@@ -78,6 +85,8 @@ See examples/SimpleAgenticRAG for more usage.
 ```bash
 # Requires Python 3.10+
 pip install iragent
+# For AgenticRAG
+pip install iragent[rag]
 # Or directly from GitHub
 pip install git+https://github.com/parssky/iragent.git
 ```
