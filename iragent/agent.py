@@ -198,7 +198,7 @@ class Agent:
                 followup = self.client.chat.completions.create(
                     model=self.model,
                     messages=msgs
-                    + [msg, {"role": "tool", "name": fn_name, "content": str(result)}],
+                    + [msg, {"role": "tool","tool_call_id": msg.tool_calls[0].id, "name": fn_name, "content": str(result)}],
                     max_tokens=self.max_token,
                     temperature=self.temprature,
                 )
@@ -242,7 +242,7 @@ class Agent:
                     messages=msgs
                     + [
                         msg,
-                        {"role": "function", "name": fn_name, "content": str(result)},
+                        {"role": "function", "tool_call_id": msg.tool_calls[0].id, "name": fn_name, "content": str(result)},
                     ],
                     max_tokens=self.max_token,
                     temperature=self.temprature,
