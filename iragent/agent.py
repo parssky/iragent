@@ -30,7 +30,7 @@ class Agent:
         max_token: int = 100,
         next_agent: str = None,
         fn: List[Callable] = [],
-        provider: str = "openai",
+        provider: str = None,
         response_format: str = None,
         memory = None
     ):
