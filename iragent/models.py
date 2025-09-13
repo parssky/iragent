@@ -294,7 +294,7 @@ class InternetAgent:
         api_key: str,
         temperature: float = 0.1,
         max_token: int = 512,
-        provider: str = "openai",
+        provider: str = None,
     ) -> None:
         self.chunk_size = chunk_size
         self.summerize_agent = Agent(
@@ -468,7 +468,7 @@ class InternetAgent:
         chunks = chunker(page_text, token_limit=self.chunk_size)
 
         # Ollama servers dislike shared clients; make one per thread
-        if getattr(self.summerize_agent, "provider", "").lower() == "ollama":
+        if getattr(self.summerize_agent, "provider", "").lower() == "ollama" :
             summarizer = Agent(
                 name="Summarize Agent (thread‑local)",
                 model=self.summerize_agent.model,
@@ -477,7 +477,6 @@ class InternetAgent:
                 system_prompt=self.summerize_agent.system_prompt,
                 temprature=self.summerize_agent.temprature,
                 max_token=self.summerize_agent.max_token,
-                provider="ollama",
             )
         else:
             summarizer = self.summerize_agent  # safe to reuse for OpenAI etc.
