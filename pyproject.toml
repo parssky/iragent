@@ -1,6 +1,6 @@
 [project]
 name = "iragent"
-version = "0.1.7"
+version = "0.1.8"
 description = "A simple multi-agent framework"
 authors = [{ name = "Parsa Bakhtiari", email = "spacenavard1@gmail.com" }]
 readme = "README.md"
