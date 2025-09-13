@@ -55,7 +55,6 @@ from iragent.models import SimpleAgenticRAG
 
 base_url= "http://127.0.0.1:1234/v1" # use your own base_url from api provider or local provider like ollama.
 api_key = "no-key" # use your own api_key.
-provider = "ollama" # openai for openai like provider (vLLM or openrouter) and ollama for local use.
 model = "qwen3-4b-instruct-2507"
 
 emb_model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -69,7 +68,6 @@ agent_factory = AgentFactory(
     base_url=base_url,
     api_key=api_key,
     model=model,
-    provider=provider
 )
 
 rag = SimpleAgenticRAG(
@@ -87,6 +85,8 @@ See examples/SimpleAgenticRAG for more usage.
 pip install iragent
 # For AgenticRAG
 pip install iragent[rag]
+# For AgenticRAG with GPU
+pip install iragent[rag-gpu]
 # Or directly from GitHub
 pip install git+https://github.com/parssky/iragent.git
 ```
@@ -95,7 +95,7 @@ pip install git+https://github.com/parssky/iragent.git
 ```python
 from iragent.tools import get_time_now, simple_termination
 
-factory = AgentFactory(base_url,api_key, model, provider)
+factory = AgentFactory(base_url,api_key, model)
 
 agent1 = factory.create_agent(name="time_reader",
                             system_prompt="You are that one who can read time. there is a fucntion named get_time_now(), you can call it whether user ask about time or date.",
