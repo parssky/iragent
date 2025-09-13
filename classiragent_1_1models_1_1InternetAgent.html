@@ -100,8 +100,8 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af2d9eaaa8a2b289559a3a2c0fe944f74" id="r_af2d9eaaa8a2b289559a3a2c0fe944f74"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2d9eaaa8a2b289559a3a2c0fe944f74">__init__</a> (self, int <a class="el" href="#a38f738c0f1f65954676b052fdf94d69a">chunk_size</a>, str model, str base_url, str api_key, float temperature=0.1, int max_token=512, str provider=&quot;openai&quot;)</td></tr>
-<tr class="separator:af2d9eaaa8a2b289559a3a2c0fe944f74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a12a299ba0dcea5885e33759a802f80" id="r_a6a12a299ba0dcea5885e33759a802f80"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a12a299ba0dcea5885e33759a802f80">__init__</a> (self, int <a class="el" href="#a38f738c0f1f65954676b052fdf94d69a">chunk_size</a>, str model, str base_url, str api_key, float temperature=0.1, int max_token=512, str provider=None)</td></tr>
+<tr class="separator:a6a12a299ba0dcea5885e33759a802f80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae14e8878d1f3eafe7f7aa9fb2ce921c4" id="r_ae14e8878d1f3eafe7f7aa9fb2ce921c4"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae14e8878d1f3eafe7f7aa9fb2ce921c4">start</a> (self, str query, num_result)</td></tr>
 <tr class="separator:ae14e8878d1f3eafe7f7aa9fb2ce921c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52d5ede4bf5508ec3fe6e4d2c542b4a5" id="r_a52d5ede4bf5508ec3fe6e4d2c542b4a5"><td class="memItemLeft" align="right" valign="top">list[dict]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52d5ede4bf5508ec3fe6e4d2c542b4a5">fast_start</a> (self, str query, int num_result, int|None max_workers=None)</td></tr>
@@ -143,8 +143,8 @@ Methods:
         splits them into chunks, summarizes them using the summarization agent,
         and returns a list of dictionaries with URL, title, and summarized content.
 </pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af2d9eaaa8a2b289559a3a2c0fe944f74" name="af2d9eaaa8a2b289559a3a2c0fe944f74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2d9eaaa8a2b289559a3a2c0fe944f74">&#9670;&#160;</a></span>__init__()</h2>
+<a id="a6a12a299ba0dcea5885e33759a802f80" name="a6a12a299ba0dcea5885e33759a802f80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a12a299ba0dcea5885e33759a802f80">&#9670;&#160;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +187,7 @@ Methods:
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">str </td>          <td class="paramname"><span class="paramname"><em>provider</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;openai&quot;</span>&#160;)</td>
+          <td class="paramtype">str </td>          <td class="paramname"><span class="paramname"><em>provider</em></span><span class="paramdefsep"> = </span><span class="paramdefval">None</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
