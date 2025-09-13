@@ -468,7 +468,7 @@ class InternetAgent:
         chunks = chunker(page_text, token_limit=self.chunk_size)
 
         # Ollama servers dislike shared clients; make one per thread
-        if getattr(self.summerize_agent, "provider", "").lower() == "ollama" or self.summerize_agent.provider == None:
+        if getattr(self.summerize_agent, "provider", "").lower() == "ollama" :
             summarizer = Agent(
                 name="Summarize Agent (thread‑local)",
                 model=self.summerize_agent.model,
