@@ -1,6 +1,7 @@
 import inspect
 import json
 import re
+import warnings
 from typing import Any, Callable, Dict, List, get_type_hints
 
 import requests
@@ -79,13 +80,26 @@ class Agent:
         # Add to memory if it is first time
         if self.memory:
             self.memory.add_history(user_msg)
+        # Provider will be removed in v0.1.8
+        # TODO: Remove provider and use just one of them.
+        if self.provider:
+            warnings.warn(
+                "'provider' is deprecated and will be removed in the next release. "
+                "You no longer need to define 'provider' — the package will automatically "
+                "select the appropriate backend.",
+                FutureWarning,  # or DeprecationWarning if you want it hidden by default
+                stacklevel=2
+            )
 
-        if self.provider == "openai":
-            res =  self._call_openai(msgs=msgs, message=message, **kwargs)
-        elif self.provider == "ollama":
-            res = self._call_ollama_v2(msgs=msgs, message=message)
+            if self.provider == "openai":
+                res =  self._call_openai(msgs=msgs, message=message, **kwargs)
+            elif self.provider == "ollama":
+                res = self._call_ollama_v2(msgs=msgs, message=message)
+            else:
+                raise ValueError(f"Unsupported provider: {self.provider}")
+        
         else:
-            raise ValueError(f"Unsupported provider: {self.provider}")
+            res = self._call_ollama_v2(msgs=msgs, message=message)
         
         
         if self.memory:
@@ -183,7 +197,8 @@ class Agent:
             max_tokens=self.max_token,
             temperature=self.temprature,
         )
-
+        if self.response_format:
+            kwargs["response_format"] = self.response_format
         if self.fn:
             kwargs["tools"] = [{"type": "function", "function": f} for f in self.fn]
         response = self.client.chat.completions.create(**kwargs)
@@ -208,6 +223,18 @@ class Agent:
                     content=followup.choices[0].message.content.strip(),
                     metadata={"reply_to": message.metadata.get("message_id")},
                 )
+        # Handle response format
+        if self.response_format:
+            try:
+                parsed_content = json.loads(msg.content)
+            except json.JSONDecodeError:
+                parsed_content = {"error": "Invalid JSON response", "raw": msg.content}
+            return Message(
+                sender=self.name,
+                reciever=self.next_agent or message.sender,
+                content=parsed_content,
+                metadata={"reply_to": message.metadata.get("message_id")},
+            )
 
         return Message(
             sender=self.name,
@@ -366,7 +393,7 @@ class AgentFactory:
             Creates and returns a new Agent instance using the shared
             configuration and any additional keyword arguments.    
     """
-    def __init__(self, base_url: str, api_key: str, model: str, provider: str = "openai") -> Agent:
+    def __init__(self, base_url: str, api_key: str, model: str, provider: str = None) -> Agent:
         self.base_url = base_url
         self.api_key = api_key
         self.model = model
