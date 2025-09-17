@@ -4,7 +4,6 @@ import re
 import warnings
 from typing import Any, Callable, Dict, List, get_type_hints
 
-import requests
 from openai import OpenAI
 
 from .message import Message
@@ -107,85 +106,6 @@ class Agent:
             self.memory.add_message(res)
         return res
 
-    def _call_ollama(self, msgs: List[Dict], message: Message) -> Message:
-        """!
-        This function use http call for ollama provider.
-        @param msgs:
-            this is a list of dictionary
-        """
-        payload = {"model": self.model, "messages": msgs, "stream": False}
-        function_payload = {
-            "tools": [{"type": "function", "function": f} for f in self.fn]
-        }
-        payload.update(function_payload)
-
-        try:
-            response = requests.post(
-                f"{self.base_url.removesuffix('/v1')}/api/chat", json=payload
-            )
-        except Exception as e:
-            raise ValueError(f"Error calling Ollama: {str(e)}")
-
-        response.raise_for_status()
-        result = response.json()
-        msg = result["message"]
-        tool_calls = msg.get("tool_calls", [])
-        if not tool_calls:
-            reply = msg.get("content", "")
-            return Message(
-                sender=self.name,
-                reciever=self.next_agent or message.sender,
-                content=reply.strip(),
-                metadata={"reply_to": message.metadata.get("message_id")},
-            )
-
-        # Handle tool call (assume one for now)
-        tool = tool_calls[0]
-        fn_name = tool["function"]["name"]
-        arguments = tool["function"]["arguments"]
-
-        if fn_name in self.function_map:
-            result_str = str(self.function_map[fn_name](**arguments))
-
-            # Add tool call + tool response to messages for a second round
-            followup_msgs = msgs + [
-                {"role": "assistant", "tool_calls": tool_calls, "content": ""},
-                {
-                    "role": "tool",
-                    "tool_call_id": tool.get("id", fn_name),
-                    "name": fn_name,
-                    "content": result_str,
-                },
-            ]
-
-            followup_payload = {
-                "model": self.model,
-                "messages": followup_msgs,
-                "stream": False,
-            }
-
-            followup_response = requests.post(
-                f"{self.base_url.removesuffix('/v1')}/api/chat", json=followup_payload
-            )
-            followup_response.raise_for_status()
-            followup = followup_response.json()
-
-            final_reply = followup["message"]["content"]
-            return Message(
-                sender=self.name,
-                reciever=self.next_agent or message.sender,
-                content=final_reply.strip(),
-                metadata={"reply_to": message.metadata.get("message_id")},
-            )
-
-        # fallback if function is not found
-        return Message(
-            sender=self.name,
-            reciever=self.next_agent or message.sender,
-            content=f"Function `{fn_name}` is not defined.",
-            metadata={"reply_to": message.metadata.get("message_id")},
-        )
-
     def _call_ollama_v2(self, msgs: List[Dict], message: Message) -> Message:
         """
         There is some different when you want to use ollama or openai call. this function work with "role":"tool".
@@ -204,42 +124,63 @@ class Agent:
         response = self.client.chat.completions.create(**kwargs)
 
         msg = response.choices[0].message
+        
         # for function call
         if msg.tool_calls:
-            fn_name = msg.tool_calls[0].function.name
-            arguments = json.loads(msg.tool_calls[0].function.arguments)
-            if fn_name in self.function_map:
-                result = self.function_map[fn_name](**arguments)
-                followup = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=msgs
-                    + [msg, {"role": "tool","tool_call_id": msg.tool_calls[0].id, "name": fn_name, "content": str(result)}],
-                    max_tokens=self.max_token,
-                    temperature=self.temprature,
+            msgs.append(msg.model_dump())
+
+            for tool_call in msg.tool_calls:
+                fn_name = tool_call.function.name
+                arguments = json.loads(tool_call.function.arguments)
+                fn = self.function_map.get(
+                    fn_name, lambda **_: f"Function `{fn_name}` not found."
                 )
-                return Message(
-                    sender=self.name,
-                    reciever=self.next_agent or message.sender,
-                    content=followup.choices[0].message.content.strip(),
-                    metadata={"reply_to": message.metadata.get("message_id")},
-                )
-        # Handle response format
-        if self.response_format:
-            try:
-                parsed_content = json.loads(msg.content)
-            except json.JSONDecodeError:
-                parsed_content = {"error": "Invalid JSON response", "raw": msg.content}
+                try:
+                    result = fn(**arguments)
+                except Exception as e:
+                    result = f"Error executing {fn_name}: {str(e)}"
+                msgs.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "name": fn_name,
+                    "content": str(result)
+                })
+            followup = self.client.chat.completions.create(
+                model=self.model,
+                messages=msgs,
+                max_tokens=self.max_token,
+                temperature=self.temprature
+            )
+            follow_msg = followup.choices[0].message
+            content = follow_msg.content.strip() if follow_msg.content else ""
+            # Structured output handling
+            if self.response_format:
+                try:
+                    content = json.loads(content)
+                except json.JSONDecodeError:
+                    content = {"error": "Invalid JSON response", "raw": content}  
+
             return Message(
                 sender=self.name,
                 reciever=self.next_agent or message.sender,
-                content=parsed_content,
+                content=followup.choices[0].message.content.strip(),
                 metadata={"reply_to": message.metadata.get("message_id")},
             )
+        # --- Normal assistant reply (no tools) ---
+        msgs.append(msg.model_dump())
+        content = msg.content.strip() if msg.content else ""
+        # Structured output handling
+        if self.response_format:
+            try:
+                content = json.loads(content)
+            except json.JSONDecodeError:
+                content = {"error": "Invalid JSON response", "raw": content}
+
 
         return Message(
             sender=self.name,
             reciever=self.next_agent or message.sender,
-            content=response.choices[0].message.content.strip(),
+            content=content,
             metadata={"reply_to": message.metadata.get("message_id")},
         )
 

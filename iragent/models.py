@@ -199,29 +199,21 @@ class AutoAgentManager:
         max_round: int = 3,
         termination_fn: Callable = None,
         termination_word: str = None,
-        init_message: str = None,
     ) -> None:
         self.auto_agent = Agent(
             "agent_manager",
-            system_prompt="You are the agent manager.",
+            system_prompt="You are the agent manager. Who route the message between agents and user.",
             model=first_agent.model,
             base_url=first_agent.base_url,
             api_key=first_agent.api_key,
             temprature=0.1,
-            max_token=1024,
+            max_token=4096,
             memory=BaseMemory
         )
         self.first_agent = first_agent
         self.termination_fn = termination_fn
         self.max_round = max_round
         self.agents = {agent.name: agent for agent in agents}
-        self.init_msg = Message(
-            sender="user",
-            reciever=first_agent.name,
-            content=init_message,
-            intent="User request",
-            metadata={},
-        )
         self.termination_word = termination_word
 
     def start(self, message = None) -> Message:
@@ -246,13 +238,15 @@ class AutoAgentManager:
             for _ in range(self.max_round):
                 next_agent = (self.auto_agent.call_message(
                     Message(
-                        sender="auto_router",
+                        sender=self.first_agent.name,
                         reciever="agent_manager",
                         content=AUTO_AGENT_PROMPT.format(
-                            list_agents_info, last_msg.sender, last_msg.content
+                            list_agents_info, message ,last_msg.sender, last_msg.content
                         ),
                     )
-                )).content
+                )).content.strip()
+                if next_agent.lower() == "finish":
+                    return last_msg
                 if next_agent in self.agents.keys():
                     break
             last_msg.reciever = next_agent
@@ -544,7 +538,6 @@ class SmartPrompt:
             max_token = 512
         )
         self.manager = AutoAgentManager(
-            init_message="",
             agents= [self.writer,self.reader],
             first_agent=self.writer,
             max_round=5,
@@ -561,8 +554,7 @@ class SmartPrompt:
         {}
 
         """
-        self.manager.init_msg.content = msg.format(input, output)
-        return self.manager.start()
+        return self.manager.start(msg.format(input, output))
 
 
 class SmartAgentBuilder:
@@ -635,7 +627,6 @@ class SmartAgentBuilder:
         )
         print(f"Agents are created : {' | '.join([a.name for a in agents_object])}")
         manager = AutoAgentManager(
-            init_message= init_message if init_message is not None else None,
             agents= agents_object,
             first_agent=agents_object[0],
             max_round=2 * len(agents_object),
@@ -811,7 +802,6 @@ class SimpleAgenticRAG:
             max_token = 1024
         )
         self.manager = AutoAgentManager(
-            init_message=None,
             agents=[self.retriever_agent, self.generator_agent],
             first_agent=self.retriever_agent,
             max_round=10,
