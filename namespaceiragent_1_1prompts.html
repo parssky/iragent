@@ -145,18 +145,25 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line"><span class="lineno">    1</span>=  <span class="stringliteral">&quot;&quot;&quot;</span></div>
 <div class="line"><span class="lineno">    2</span><span class="stringliteral">You are the Auto Agent Manager in a multi-agent AI system.</span></div>
 <div class="line"><span class="lineno">    3</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">    4</span><span class="stringliteral">Your job is to decide which agent should handle the next step based on the output of the previous agent.</span></div>
+<div class="line"><span class="lineno">    4</span><span class="stringliteral">Your job: decide which agent should handle the next step based on the output of the previous agent.</span></div>
 <div class="line"><span class="lineno">    5</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">    6</span><span class="stringliteral">You will be given:</span></div>
-<div class="line"><span class="lineno">    7</span><span class="stringliteral">1. A list of agents with their names and descriptions (system prompts)</span></div>
-<div class="line"><span class="lineno">    8</span><span class="stringliteral">2. The output message from the last agent</span></div>
+<div class="line"><span class="lineno">    6</span><span class="stringliteral">You are given:</span></div>
+<div class="line"><span class="lineno">    7</span><span class="stringliteral">1. A list of available agents, with their names and role descriptions</span></div>
+<div class="line"><span class="lineno">    8</span><span class="stringliteral">2. The last message produced by the current agent</span></div>
 <div class="line"><span class="lineno">    9</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   10</span><span class="stringliteral">Respond with only the name of the next agent to route the message to.</span></div>
-<div class="line"><span class="lineno">   11</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   12</span><span class="stringliteral">agents: {}</span></div>
-<div class="line"><span class="lineno">   13</span><span class="stringliteral"></span> </div>
-<div class="line"><span class="lineno">   14</span><span class="stringliteral">{} message: {}</span></div>
-<div class="line"><span class="lineno">   15</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><span class="lineno">   10</span><span class="stringliteral">Your rules:</span></div>
+<div class="line"><span class="lineno">   11</span><span class="stringliteral">- Always respond with only the name of the next agent, nothing else.</span></div>
+<div class="line"><span class="lineno">   12</span><span class="stringliteral">- If the last agent’s response looks like a direct answer to the user or user&#39;s original request(e.g., it contains the final explanation, numbers, or insights requested by the user), respond with &quot;finish&quot;.</span></div>
+<div class="line"><span class="lineno">   13</span><span class="stringliteral">- Otherwise, select the most appropriate agent from the list.</span></div>
+<div class="line"><span class="lineno">   14</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   15</span><span class="stringliteral">agents: {}</span></div>
+<div class="line"><span class="lineno">   16</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   17</span><span class="stringliteral">User request:</span></div>
+<div class="line"><span class="lineno">   18</span><span class="stringliteral">{}</span></div>
+<div class="line"><span class="lineno">   19</span><span class="stringliteral"></span> </div>
+<div class="line"><span class="lineno">   20</span><span class="stringliteral">Last message (from {}):</span></div>
+<div class="line"><span class="lineno">   21</span><span class="stringliteral">{}</span></div>
+<div class="line"><span class="lineno">   22</span><span class="stringliteral">&quot;&quot;&quot;</span></div>
 </div><!-- fragment -->
 </div>
 </div>
