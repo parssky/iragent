@@ -77,7 +77,6 @@ class TestAutoAgentManager(unittest.TestCase):
         ]
 
         manager = AutoAgentManager(
-            init_message="What time is it now?",
             agents=[self.agent_a, self.agent_b, self.agent_c],
             first_agent=self.agent_a,
             max_round=5,
@@ -85,6 +84,6 @@ class TestAutoAgentManager(unittest.TestCase):
             termination_word="[#finish#]",
         )
 
-        result = manager.start()
+        result = manager.start("What time is it now?")
         self.assertTrue(result.content.strip())
         self.assertIn("15", result.content)
